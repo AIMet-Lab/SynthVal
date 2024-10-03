@@ -48,7 +48,7 @@ def get_pil_image(image_path: str) -> PIL.Image.Image:
 
     if image_path.split(".")[-1] == "dcm":
 
-        dcm_image = pydicom.read_file(image_path)
+        dcm_image = pydicom.dcmread(image_path)
         new_image = dcm_image.pixel_array.astype(float)  # Convert the values into float
 
         scaled_image = (np.maximum(new_image, 0) / new_image.max()) * 255.0

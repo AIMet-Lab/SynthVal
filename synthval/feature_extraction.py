@@ -3,7 +3,7 @@ import os
 
 import PIL.Image
 import pandas
-import utilities
+import synthval.utilities as utilities
 
 import numpy as np
 import torch
