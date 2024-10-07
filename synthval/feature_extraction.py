@@ -3,7 +3,7 @@ import os
 
 import PIL.Image
 import pandas
-import utilities
+import synthval.utilities as utilities
 
 import numpy as np
 import torch
@@ -161,12 +161,14 @@ class RadDinoFeatureExtractor(FeatureExtractor):
 
         # Preprocess the image and run model inference
         inputs = processor(images=image, return_tensors="pt")
+        inputs.to("mps")
+        model.to("mps")
         with torch.inference_mode():
             outputs = model(**inputs)
 
         # Extract and return the CLS embeddings
         cls_embeddings = outputs.pooler_output
-        np_embeddings = cls_embeddings.detach().numpy().squeeze()
+        np_embeddings = cls_embeddings.detach().cpu().numpy().squeeze()
 
         return np_embeddings
 
