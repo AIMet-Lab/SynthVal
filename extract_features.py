@@ -4,7 +4,7 @@ import os
 
 master_folder_path = "/run/user/1000/gvfs/smb-share:server=wdmycloudex4100.local,share=public/CSAW Dataset/2021-204-1-1/"
 categories = ["L_MLO", "R_MLO", "L_CC", "R_CC"]
-out_folder_path = "temp_out/"
+out_folder_path = "/home/t3/Documents/GitHub/SynthVal/temp_out/"
 
 feature_extractors = [synthval.feature_extraction.RadDinoFeatureExtractor(),
                       synthval.feature_extraction.DinoV2FeatureExtractor("facebook/dinov2-base"),
