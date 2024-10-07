@@ -161,12 +161,25 @@ class RadDinoFeatureExtractor(FeatureExtractor):
 
         # Preprocess the image and run model inference
         inputs = processor(images=image, return_tensors="pt")
+
+        # Selecting the device to use for torch back-end.
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+        elif torch.mps.is_available():
+            device = torch.device("mps")
+        else:
+            device = torch.device("cpu")
+
+        # Passing inputs and models to the selected device
+        inputs.to(device)
+        model.to(device)
+
         with torch.inference_mode():
             outputs = model(**inputs)
 
         # Extract and return the CLS embeddings
         cls_embeddings = outputs.pooler_output
-        np_embeddings = cls_embeddings.detach().numpy().squeeze()
+        np_embeddings = cls_embeddings.detach().cpu().numpy().squeeze()
 
         return np_embeddings
 
@@ -214,10 +227,23 @@ class DinoV2FeatureExtractor(FeatureExtractor):
         model = AutoModel.from_pretrained(self.model_id)
 
         inputs = processor(images=image, return_tensors="pt")
+
+        # Selecting the device to use for torch back-end.
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+        elif torch.mps.is_available():
+            device = torch.device("mps")
+        else:
+            device = torch.device("cpu")
+
+        # Passing inputs and models to the selected device
+        inputs.to(device)
+        model.to(device)
+
         with torch.inference_mode():
             outputs = model(**inputs)
 
-        return outputs.pooler_output.detach().numpy().squeeze()
+        return outputs.pooler_output.detach().cpu().numpy().squeeze()
 
 
 class MambaFeatureExtractor(FeatureExtractor):
@@ -278,4 +304,4 @@ class MambaFeatureExtractor(FeatureExtractor):
         # Run inference and return the features
         out_avg_pool, features = model(inputs)
 
-        return out_avg_pool.cpu().numpy().squeeze()
+        return out_avg_pool.detach().cpu().numpy().squeeze()
