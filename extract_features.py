@@ -31,6 +31,6 @@ for i in range(len(feature_extractors)):
     feature_extractor = feature_extractors[i]
     model_id = models_ids[i]
     for cat in categories:
-        save_path = os.path.join("temp_output/", f"CSAW_{cat}_{model_id}_features.csv")
+        save_path = os.path.join(out_folder_path, f"CSAW_{cat}_{model_id}_features.csv")
         source_folder_path = os.path.join(master_folder_path, f"{cat}/")
         feature_extractor.get_features_df(source_folder_path=source_folder_path, save_path=save_path)
