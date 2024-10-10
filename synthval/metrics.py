@@ -303,7 +303,8 @@ class FCNNAccuracyMetric(SimilarityMetric):
 
         return pyn_net
 
-    def __train_metric_network(self, net, dataset: utilities.FeaturesDataset) -> pynever.networks.SequentialNetwork:
+    def __train_metric_network(self, net, dataset: synthval.utilities.FeaturesDataset) -> \
+            pynever.networks.SequentialNetwork:
 
         train_params = self.training_params
         optimizer_con = train_params["optimizer_con"]
@@ -346,7 +347,7 @@ class FCNNAccuracyMetric(SimilarityMetric):
         trained_net = trainer.train(net, dataset)
         return trained_net
 
-    def __test_metric_network(self, net, dataset: utilities.FeaturesDataset) -> float:
+    def __test_metric_network(self, net, dataset: synthval.utilities.FeaturesDataset) -> float:
 
         test_params = self.testing_params
         metric = test_params["metric"]

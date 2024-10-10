@@ -3,9 +3,9 @@ import os
 
 import PIL.Image
 import pandas
-import synthval.utilities as utilities
+import synthval
 
-import numpy as np
+import numpy
 import torch
 from transformers import AutoImageProcessor, AutoModel
 import timm.data.transforms_factory
@@ -18,7 +18,7 @@ class FeatureExtractor(abc.ABC):
 
     Methods
     -------
-    feature_extraction(image: PIL.Image.Image) -> np.ndarray
+    feature_extraction(image: PIL.Image.Image) -> numpy.ndarray
         Extract relevant features from a PIL image, returning them as a NumPy array.
     group_feature_extraction(source_folder_path: str, verbose: bool = True) -> pandas.DataFrame
         Extract features from a dataset of images in a specified folder.
@@ -27,7 +27,7 @@ class FeatureExtractor(abc.ABC):
     """
 
     @abc.abstractmethod
-    def feature_extraction(self, image: PIL.Image.Image) -> np.ndarray:
+    def feature_extraction(self, image: PIL.Image.Image) -> numpy.ndarray:
         """
         Abstract method to extract features from a PIL image.
 
@@ -38,7 +38,7 @@ class FeatureExtractor(abc.ABC):
 
         Returns
         -------
-        np.ndarray
+        numpy.ndarray
             A NumPy array containing the extracted features.
         """
         raise NotImplementedError
@@ -63,7 +63,7 @@ class FeatureExtractor(abc.ABC):
         # Set up logger if verbosity is enabled
         stream_logger = None
         if verbose:
-            stream_logger = utilities.get_stream_logger("synthval.feature_extraction")
+            stream_logger = synthval.utilities.get_stream_logger("synthval.feature_extraction")
 
         # Retrieve image IDs from the folder
         images_ids = sorted(os.listdir(source_folder_path))
@@ -78,7 +78,7 @@ class FeatureExtractor(abc.ABC):
             image_path = os.path.join(source_folder_path, image_id)
 
             # Load the image as a PIL object
-            pil_image = utilities.get_pil_image(image_path)
+            pil_image = synthval.utilities.get_pil_image(image_path)
 
             # Extract features from the image
             np_features = self.feature_extraction(pil_image)
@@ -87,7 +87,7 @@ class FeatureExtractor(abc.ABC):
             features_dataset.append(np_features)
 
         # Convert the list of features to a NumPy array and then to a DataFrame
-        features_dataset = np.array(features_dataset).squeeze()
+        features_dataset = numpy.array(features_dataset).squeeze()
         features_df = pandas.DataFrame(features_dataset)
 
         return features_df
@@ -132,14 +132,14 @@ class RadDinoFeatureExtractor(FeatureExtractor):
 
     Methods
     -------
-    feature_extraction(image: PIL.Image.Image) -> np.ndarray
+    feature_extraction(image: PIL.Image.Image) -> numpy.ndarray
         Extract features from an image using the Rad-Dino model.
     """
 
     def __init__(self):
         super().__init__()
 
-    def feature_extraction(self, image: PIL.Image.Image) -> np.ndarray:
+    def feature_extraction(self, image: PIL.Image.Image) -> numpy.ndarray:
         """
         Extract features from a PIL image using the HuggingFace Rad-Dino model.
 
@@ -150,7 +150,7 @@ class RadDinoFeatureExtractor(FeatureExtractor):
 
         Returns
         -------
-        np.ndarray
+        numpy.ndarray
             A 1-D NumPy array of 768 features.
         """
 
@@ -197,7 +197,7 @@ class DinoV2FeatureExtractor(FeatureExtractor):
 
     Methods
     -------
-    feature_extraction(image: PIL.Image.Image) -> np.ndarray
+    feature_extraction(image: PIL.Image.Image) -> numpy.ndarray
         Extract features from an image using the selected DinoV2 model.
 
     """
@@ -206,7 +206,7 @@ class DinoV2FeatureExtractor(FeatureExtractor):
         FeatureExtractor.__init__(self)
         self.model_id = model_id
 
-    def feature_extraction(self, image: PIL.Image) -> np.ndarray:
+    def feature_extraction(self, image: PIL.Image) -> numpy.ndarray:
 
         """
         Extract features from a PIL image using the selected HuggingFace DinoV2 model.
@@ -218,7 +218,7 @@ class DinoV2FeatureExtractor(FeatureExtractor):
 
         Returns
         -------
-        np.ndarray
+        numpy.ndarray
             A 1-D NumPy array. The number of features depend on the specific model: 384 for small, 768 for base,
             1024 for large, and 1536 for giant.
         """
@@ -257,7 +257,7 @@ class MambaFeatureExtractor(FeatureExtractor):
 
     Methods
     -------
-    feature_extraction(image: PIL.Image.Image) -> np.ndarray
+    feature_extraction(image: PIL.Image.Image) -> numpy.ndarray
         Extract features from an image using the selected MambaVision model.
     """
 
@@ -265,7 +265,7 @@ class MambaFeatureExtractor(FeatureExtractor):
         super().__init__()
         self.model_id = model_id
 
-    def feature_extraction(self, image: PIL.Image.Image) -> np.ndarray:
+    def feature_extraction(self, image: PIL.Image.Image) -> numpy.ndarray:
         """
         Extract features from a PIL image using the selected HuggingFace MambaVision model.
 
@@ -276,7 +276,7 @@ class MambaFeatureExtractor(FeatureExtractor):
 
         Returns
         -------
-        np.ndarray
+        numpy.ndarray
             A 1-D NumPy array of 640 features.
         """
 
