@@ -1,15 +1,24 @@
-name: "Pull Request Docs Check"
-on: 
-- pull_request
+name: "Sphinx: Render docs"
+
+on: push
 
 jobs:
-  docs:
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
-    - uses: actions/checkout@v1
-    - uses: ammaraskar/sphinx-action@0.4
+    - uses: actions/checkout@v4
+    - name: Build HTML
+      uses: ammaraskar/sphinx-action@v4
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v4
       with:
-        # The folder containing your sphinx docs.
-        docs-folder: docs/
-        # The command used to build your documentation.
-        build-command: make html
+        name: html-docs
+        path: docs/build/html/
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: docs/build/html
