@@ -5,3 +5,7 @@ pandas~=2.2.1
 timm~=1.0.9
 transformers~=4.45.1
 torch~=2.6.0.dev20240927
+scipy~=1.13.1
+dcor~=0.6
+pynever~=0.1.2
+scikit-learn~=1.5.1
