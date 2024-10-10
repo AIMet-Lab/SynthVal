@@ -17,7 +17,8 @@ SynthVal is built around two main modules:
    
 2. **Similarity Metrics**: The ``metrics.py`` module provides the capabilities to calculates several metrics to determine the similarity between original and synthetic datasets.
 
-Documentation
+Links
 -------------
 
-The package documentation can be found `here <https://aimet-lab.github.io/SynthVal/index.html>`_.
+- `SynthVal Documentation <https://aimet-lab.github.io/SynthVal/index.html>`_
+- `SynthVal Repository <https://github.com/AIMet-Lab/SynthVal?tab=readme-ov-file>`_
