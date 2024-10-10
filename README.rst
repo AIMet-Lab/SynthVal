@@ -22,3 +22,4 @@ Links
 
 - `SynthVal Documentation <https://aimet-lab.github.io/SynthVal/index.html>`_
 - `SynthVal Repository <https://github.com/AIMet-Lab/SynthVal?tab=readme-ov-file>`_
+- `SynthVal PyPI Project <https://pypi.org/project/SynthVal/>`_
