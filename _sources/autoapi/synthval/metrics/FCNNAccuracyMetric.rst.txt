@@ -1,0 +1,60 @@
+synthval.metrics.FCNNAccuracyMetric
+===================================
+
+.. py:class:: synthval.metrics.FCNNAccuracyMetric(test_percentage = 0.2, rng_seed = 0, network_params = synthval.configs.DEFAULT_NETWORK_PARAMS, training_params = synthval.configs.DEFAULT_TRAINING_PARAMS, testing_params = synthval.configs.DEFAULT_TESTING_PARAMS)
+
+   Bases: :py:obj:`SimilarityMetric`
+
+
+   Similarity Metric computing the Accuracy of a fully-connected neural networks trained to distinguish between the
+   points belonging to the distributions P and Q.
+
+   .. attribute:: test_percentage
+
+      Percentage of the samples to use for the testing of the network, and therefore for computing the
+      final metric (default: 0.2).
+
+      :type: float, Optional
+
+   .. attribute:: rng_seed
+
+      Random Generator seed used for numpy utilities (default: 0).
+
+      :type: int, Optional
+
+   .. attribute:: network_params
+
+      Contains the relevant parameters needed to build the network. Refer to configs.DEFAULT_NETWORK_PARAMS for
+      an example (default: configs.DEFAULT_NETWORK_PARAMS).
+
+      :type: dict, Optional
+
+   .. attribute:: training_params
+
+      Contains the relevant parameters needed to train the network. Refer to configs.DEFAULT_TRAINING_PARAMS for
+      an example (default: configs.DEFAULT_TRAINING_PARAMS).
+
+      :type: dict, Optional
+
+   .. attribute:: testing_params
+
+      Contains the relevant parameters needed to test the network. Refer to configs.DEFAULT_TESTING_PARAMS for
+      an example (default: configs.DEFAULT_TESTING_PARAMS).
+
+      :type: dict, Optional
+
+
+   .. py:method:: calculate(dist_p_df, dist_q_df)
+
+      Compute the Accuracy of a fully-connected neural networks trained to distinguish between the
+      points belonging to the distributions P and Q.
+
+      :param dist_p_df: Set of samples representing distribution P.
+      :type dist_p_df: pandas.DataFrame
+      :param dist_q_df: Set of samples representing distribution Q.
+      :type dist_q_df: pandas.DataFrame
+
+      :returns: * **out** (*float*)
+                * *The final accuracy computed on the test set.*
+
+

@@ -1,0 +1,26 @@
+synthval.metrics.WassersteinDistance
+====================================
+
+.. py:class:: synthval.metrics.WassersteinDistance
+
+   Bases: :py:obj:`SimilarityMetric`
+
+
+   Similarity Metric computing the Wasserstein Distance.
+
+
+
+   .. py:method:: calculate(dist_p_df, dist_q_df)
+
+      Compute the Wasserstein Distance between two set of samples originating from two
+      multivariate distribution P and Q.
+
+      :param dist_p_df: Set of samples representing distribution P.
+      :type dist_p_df: pandas.DataFrame
+      :param dist_q_df: Set of samples representing distribution Q.
+      :type dist_q_df: pandas.DataFrame
+
+      :returns: The value of the Wasserstein Distance.
+      :rtype: float
+
+

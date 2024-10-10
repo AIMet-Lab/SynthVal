@@ -1,0 +1,31 @@
+synthval.metrics.KLDivergenceEstimation
+=======================================
+
+.. py:class:: synthval.metrics.KLDivergenceEstimation
+
+   Bases: :py:obj:`SimilarityMetric`
+
+
+   Similarity Metric computing an estimation of the Kullback-Leibler divergence based on the methodology proposed in
+   the referenced paper.
+
+   .. rubric:: References
+
+   Pérez-Cruz, F. Kullback-Leibler divergence estimation of continuous distributions IEEE International Symposium
+   on Information Theory, 2008.
+
+
+   .. py:method:: calculate(dist_p_df, dist_q_df)
+
+      Compute an estimation of the Kullback-Leibler divergence between two set of samples originating from two
+      multivariate distribution P and Q.
+
+      :param dist_p_df: Set of samples representing distribution P.
+      :type dist_p_df: pandas.DataFrame
+      :param dist_q_df: Set of samples representing distribution Q.
+      :type dist_q_df: pandas.DataFrame
+
+      :returns: The estimated value of the Kullback-Leibler divergence.
+      :rtype: float
+
+

@@ -1,0 +1,30 @@
+synthval.metrics.SimilarityMetric
+=================================
+
+.. py:class:: synthval.metrics.SimilarityMetric
+
+   Bases: :py:obj:`abc.ABC`
+
+
+   Abstract base class representing a generic similarity metric between two sets of samples originating from
+   two multivariate distributions.
+   Child classes must implement the concrete `calculate` method for computing the specific metric.
+
+
+
+   .. py:method:: calculate(dist_p_df, dist_q_df)
+      :abstractmethod:
+
+
+      Abstract method to compute a metric of similarity between two set of samples originating from two multivariate
+      distribution P and Q.
+
+      :param dist_p_df: Set of samples representing distribution P.
+      :type dist_p_df: pandas.DataFrame
+      :param dist_q_df: Set of samples representing distribution Q.
+      :type dist_q_df: pandas.DataFrame
+
+      :returns: The value of the metric.
+      :rtype: float
+
+

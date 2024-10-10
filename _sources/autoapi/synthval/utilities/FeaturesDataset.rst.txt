@@ -1,0 +1,29 @@
+synthval.utilities.FeaturesDataset
+==================================
+
+.. py:class:: synthval.utilities.FeaturesDataset(ori_features, gen_features, test_percentage = 0.2, rng_seed = 0, train_mode = True)
+
+   Bases: :py:obj:`pynever.datasets.Dataset`
+
+
+   Utility class for the management of the dataset composed by the feature extracted from the original images
+   and the synthetically generated images. Needed for using the pynever training and testing strategies.
+
+   .. attribute:: train_df
+
+      The training set.
+
+      :type: pandas.Dataframe
+
+   .. attribute:: test_df
+
+      The test set.
+
+      :type: pandas.Dataframe
+
+   .. attribute:: train_mode
+
+      Flag controlling if the __get_item__ function returns element from the training set or the test set.
+
+      :type: bool
+
