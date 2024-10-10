@@ -1,3 +1,28 @@
+"""
+Module for computing various similarity metrics between two sets of samples originating from multivariate distributions.
+
+This module defines abstract and concrete classes for computing similarity metrics between samples from two
+distributions. The available metrics include Kullback-Leibler divergence, Wasserstein distance, Energy distance,
+Mean Mahalanobis distance, and a machine learning-based accuracy metric using fully connected neural networks.
+
+Classes
+-------
+SimilarityMetric(abc.ABC)
+    Abstract base class for defining similarity metrics.
+KLDivergenceEstimation(SimilarityMetric)
+    Concrete implementation of Kullback-Leibler divergence estimation.
+WassersteinDistance(SimilarityMetric)
+    Concrete implementation of the Wasserstein distance.
+EnergyDistance(SimilarityMetric)
+    Concrete implementation of the Energy distance.
+MeanMahalanobisDistance(SimilarityMetric)
+    Concrete implementation of the mean Mahalanobis distance.
+FCNNAccuracyMetric(SimilarityMetric)
+    Concrete implementation of an accuracy metric based on fully-connected neural networks.
+
+"""
+
+
 import abc
 
 import numpy as np
@@ -21,11 +46,6 @@ class SimilarityMetric(abc.ABC):
     two multivariate distributions.
     Child classes must implement the concrete `calculate` method for computing the specific metric.
 
-    Methods
-    -------
-    calculate(dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float
-        Calculate the value of the metric for the two sets of samples originating from the multivariate distributions
-        P and Q.
     """
 
     @abc.abstractmethod
@@ -54,12 +74,6 @@ class KLDivergenceEstimation(SimilarityMetric):
     """
     Similarity Metric computing an estimation of the Kullback-Leibler divergence based on the methodology proposed in
     the referenced paper.
-
-    Methods
-    -------
-    calculate(dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float
-        Calculate the value of the metric for the two sets of samples originating from the multivariate distributions
-        P and Q.
 
     References
     ----------
@@ -117,12 +131,6 @@ class WassersteinDistance(SimilarityMetric):
     """
     Similarity Metric computing the Wasserstein Distance.
 
-    Methods
-    -------
-    calculate(dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float
-        Calculate the value of the metric for the two sets of samples originating from the multivariate distributions
-        P and Q.
-
     """
 
     def __init__(self):
@@ -154,12 +162,6 @@ class WassersteinDistance(SimilarityMetric):
 class EnergyDistance(SimilarityMetric):
     """
     Similarity Metric computing the Energy Distance.
-
-    Methods
-    -------
-    calculate(dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float
-        Calculate the value of the metric for the two sets of samples originating from the multivariate distributions
-        P and Q.
 
     """
 
@@ -194,12 +196,6 @@ class MeanMahalanobisDistance(SimilarityMetric):
     Similarity Metric computing the mean of the estimated Mahalanobis Distances between all the samples
     of the P distribution and the Q distribution (the estimation is due to the use of the numpy.cov method
     to compute the covariance matrix of the Q distribution).
-
-    Methods
-    -------
-    calculate(dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float
-        Calculate the value of the metric for the two sets of samples originating from the multivariate distributions
-        P and Q.
 
     """
 
@@ -261,12 +257,6 @@ class FCNNAccuracyMetric(SimilarityMetric):
     testing_params: dict, Optional
         Contains the relevant parameters needed to test the network. Refer to configs.DEFAULT_TESTING_PARAMS for
         an example (default: configs.DEFAULT_TESTING_PARAMS).
-
-    Methods
-    -------
-    calculate(dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float
-        Calculate the value of the metric for the two sets of samples originating from the multivariate distributions
-        P and Q.
 
     """
 

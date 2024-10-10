@@ -1,3 +1,26 @@
+"""
+Module providing utility functions and classes for handling image datasets and feature extraction.
+
+This module contains utility functions for image processing, such as converting DICOM and other image formats to
+PIL Images, and managing datasets of extracted features for training and testing. The dataset management is
+integrated with pyNeVer's training and testing strategies.
+
+Functions
+---------
+get_stream_logger(logger_origin: str) -> logging.Logger
+    Utility function to instantiate a stream logger.
+get_pil_image(image_path: str) -> PIL.Image.Image
+    Utility function to convert a DICOM or generic image file to a PIL Image.
+
+Classes
+-------
+FeaturesDataset(pynever.datasets.Dataset)
+    A dataset class for managing features extracted from original and synthetically generated images for use in
+    PyNEVER training and testing.
+
+"""
+
+
 import sys
 
 import PIL.Image

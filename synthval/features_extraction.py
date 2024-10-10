@@ -1,3 +1,24 @@
+"""
+Module for feature extraction using various models from HuggingFace, including Rad-Dino, DinoV2, and MambaVision.
+
+This module defines abstract and concrete classes for feature extraction from images, leveraging different pre-trained
+models available through the HuggingFace library. The module supports extracting features from images using models such
+as Rad-Dino, DinoV2, and MambaVision, with each extractor providing methods for single and batch feature extraction.
+
+Classes
+-------
+FeatureExtractor(abc.ABC)
+    Abstract base class for defining a feature extractor interface.
+RadDinoFeatureExtractor(FeatureExtractor)
+    Concrete feature extractor using the HuggingFace Rad-Dino model.
+DinoV2FeatureExtractor(FeatureExtractor)
+    Concrete feature extractor using models from the HuggingFace DinoV2 family.
+MambaFeatureExtractor(FeatureExtractor)
+    Concrete feature extractor using models from the HuggingFace MambaVision family.
+
+"""
+
+
 import abc
 import os
 
@@ -7,7 +28,7 @@ import synthval
 
 import numpy
 import torch
-from transformers import AutoImageProcessor, AutoModel
+import transformers
 import timm.data.transforms_factory
 
 
@@ -16,14 +37,6 @@ class FeatureExtractor(abc.ABC):
     Abstract base class representing a generic feature extractor. Child classes must implement
     the concrete `feature_extraction` method for specific feature extraction.
 
-    Methods
-    -------
-    feature_extraction(image: PIL.Image.Image) -> numpy.ndarray
-        Extract relevant features from a PIL image, returning them as a NumPy array.
-    group_feature_extraction(source_folder_path: str, verbose: bool = True) -> pandas.DataFrame
-        Extract features from a dataset of images in a specified folder.
-    get_features_df(source_folder_path: str, save_path: str = None, verbose: bool = True) -> pandas.DataFrame
-        Extract features from images in a folder, with an option to save or load a CSV file.
     """
 
     @abc.abstractmethod
@@ -130,10 +143,6 @@ class RadDinoFeatureExtractor(FeatureExtractor):
     """
     Feature extractor using the HuggingFace model microsoft/rad-dino for extracting features from images.
 
-    Methods
-    -------
-    feature_extraction(image: PIL.Image.Image) -> numpy.ndarray
-        Extract features from an image using the Rad-Dino model.
     """
 
     def __init__(self):
@@ -156,8 +165,8 @@ class RadDinoFeatureExtractor(FeatureExtractor):
 
         # Load the pre-trained model and processor from HuggingFace
         repo = "microsoft/rad-dino"
-        processor = AutoImageProcessor.from_pretrained(repo)
-        model = AutoModel.from_pretrained(repo)
+        processor = transformers.AutoImageProcessor.from_pretrained(repo)
+        model = transformers.AutoModel.from_pretrained(repo)
 
         # Preprocess the image and run model inference
         inputs = processor(images=image, return_tensors="pt")
@@ -195,18 +204,13 @@ class DinoV2FeatureExtractor(FeatureExtractor):
     model_id : str
         HuggingFace model ID for the selected DinoV2 model.
 
-    Methods
-    -------
-    feature_extraction(image: PIL.Image.Image) -> numpy.ndarray
-        Extract features from an image using the selected DinoV2 model.
-
     """
 
     def __init__(self, model_id: str):
         FeatureExtractor.__init__(self)
         self.model_id = model_id
 
-    def feature_extraction(self, image: PIL.Image) -> numpy.ndarray:
+    def feature_extraction(self, image: PIL.Image.Image) -> numpy.ndarray:
 
         """
         Extract features from a PIL image using the selected HuggingFace DinoV2 model.
@@ -223,8 +227,8 @@ class DinoV2FeatureExtractor(FeatureExtractor):
             1024 for large, and 1536 for giant.
         """
 
-        processor = AutoImageProcessor.from_pretrained(self.model_id)
-        model = AutoModel.from_pretrained(self.model_id)
+        processor = transformers.AutoImageProcessor.from_pretrained(self.model_id)
+        model = transformers.AutoModel.from_pretrained(self.model_id)
 
         inputs = processor(images=image, return_tensors="pt")
 
@@ -255,10 +259,6 @@ class MambaFeatureExtractor(FeatureExtractor):
     model_id : str
         HuggingFace model ID for the selected MambaVision model.
 
-    Methods
-    -------
-    feature_extraction(image: PIL.Image.Image) -> numpy.ndarray
-        Extract features from an image using the selected MambaVision model.
     """
 
     def __init__(self, model_id: str):
@@ -281,7 +281,7 @@ class MambaFeatureExtractor(FeatureExtractor):
         """
 
         # Load the specified MambaVision model from HuggingFace
-        model = AutoModel.from_pretrained(self.model_id, trust_remote_code=True)
+        model = transformers.AutoModel.from_pretrained(self.model_id, trust_remote_code=True)
 
         # Switch the model to evaluation mode
         model.cuda().eval()
