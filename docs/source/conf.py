@@ -34,6 +34,7 @@ autoapi_options = ['members',
                    'special-members']
 
 autoapi_own_page_level = 'class'
+autoapi_ignore = ['*migrations*', '__init__.py']
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
