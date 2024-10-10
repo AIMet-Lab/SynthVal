@@ -15,13 +15,9 @@ SynthVal is built around two main modules:
 
 1. **Feature Extraction**: The ``features_extraction.py`` module extracts vectors of features from images, capturing their essential characteristics to serve as the basis for similarity comparison.
    
-2. **Similarity Metrics**: The ``metrics.py`` module calculates several metrics to determine the similarity between original and synthetic datasets. These include:
-   
-   - **Energy Distance**: Measures the distance between the distributions of the datasets.
-   - **Kullback-Leibler Divergence**: Quantifies the divergence between two probability distributions.
-   - **ML-Based Accuracy**: Uses machine learning models to assess how well the synthetic data imitates the original by training models to distinguish between the two.
+2. **Similarity Metrics**: The ``metrics.py`` module provides the capabilities to calculates several metrics to determine the similarity between original and synthetic datasets.
 
-Approach
---------
+Documentation
+-------------
 
-SynthVal approaches the comparison between original and synthetic data by focusing on the underlying probability distributions rather than raw data points. This probabilistic method provides more insightful and interpretable similarity measures, especially for medical images where capturing critical features is vital.
+The package documentation can be found `here <https://aimet-lab.github.io/SynthVal/index.html>`_.
