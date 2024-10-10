@@ -1,0 +1,28 @@
+features_extraction.MambaFeatureExtractor
+=========================================
+
+.. py:class:: features_extraction.MambaFeatureExtractor(model_id)
+
+   Bases: :py:obj:`FeatureExtractor`
+
+
+   Feature extractor using models from the HuggingFace MambaVision family.
+
+   .. attribute:: model_id
+
+      HuggingFace model ID for the selected MambaVision model.
+
+      :type: str
+
+
+   .. py:method:: feature_extraction(image)
+
+      Extract features from a PIL image using the selected HuggingFace MambaVision model.
+
+      :param image: The image to extract features from.
+      :type image: PIL.Image.Image
+
+      :returns: A 1-D NumPy array of 640 features.
+      :rtype: numpy.ndarray
+
+

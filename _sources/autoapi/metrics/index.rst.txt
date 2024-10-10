@@ -1,0 +1,53 @@
+metrics
+=======
+
+.. py:module:: metrics
+
+.. autoapi-nested-parse::
+
+   Module for computing various similarity metrics between two sets of samples originating from multivariate distributions.
+
+   This module defines abstract and concrete classes for computing similarity metrics between samples from two
+   distributions. The available metrics include Kullback-Leibler divergence, Wasserstein distance, Energy distance,
+   Mean Mahalanobis distance, and a machine learning-based accuracy metric using fully connected neural networks.
+
+   Classes
+   -------
+   SimilarityMetric(abc.ABC)
+       Abstract base class for defining similarity metrics.
+   KLDivergenceEstimation(SimilarityMetric)
+       Concrete implementation of Kullback-Leibler divergence estimation.
+   WassersteinDistance(SimilarityMetric)
+       Concrete implementation of the Wasserstein distance.
+   EnergyDistance(SimilarityMetric)
+       Concrete implementation of the Energy distance.
+   MeanMahalanobisDistance(SimilarityMetric)
+       Concrete implementation of the mean Mahalanobis distance.
+   FCNNAccuracyMetric(SimilarityMetric)
+       Concrete implementation of an accuracy metric based on fully-connected neural networks.
+
+
+
+Classes
+-------
+
+.. toctree::
+   :hidden:
+
+   /autoapi/metrics/SimilarityMetric
+   /autoapi/metrics/KLDivergenceEstimation
+   /autoapi/metrics/WassersteinDistance
+   /autoapi/metrics/EnergyDistance
+   /autoapi/metrics/MeanMahalanobisDistance
+   /autoapi/metrics/FCNNAccuracyMetric
+
+.. autoapisummary::
+
+   metrics.SimilarityMetric
+   metrics.KLDivergenceEstimation
+   metrics.WassersteinDistance
+   metrics.EnergyDistance
+   metrics.MeanMahalanobisDistance
+   metrics.FCNNAccuracyMetric
+
+

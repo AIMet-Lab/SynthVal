@@ -1,0 +1,14 @@
+API Reference
+=============
+
+This page contains auto-generated API reference documentation [#f1]_.
+
+.. toctree::
+   :titlesonly:
+
+   /autoapi/metrics/index
+   /autoapi/configs/index
+   /autoapi/utilities/index
+   /autoapi/features_extraction/index
+
+.. [#f1] Created with `sphinx-autoapi <https://github.com/readthedocs/sphinx-autoapi>`_

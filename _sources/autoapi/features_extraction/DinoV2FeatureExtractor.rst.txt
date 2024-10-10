@@ -1,0 +1,30 @@
+features_extraction.DinoV2FeatureExtractor
+==========================================
+
+.. py:class:: features_extraction.DinoV2FeatureExtractor(model_id)
+
+   Bases: :py:obj:`FeatureExtractor`
+
+
+   Feature extractor using models from the HuggingFace DinoV2 family
+   (https://huggingface.co/collections/facebook/dinov2-6526c98554b3d2576e071ce3).
+
+   .. attribute:: model_id
+
+      HuggingFace model ID for the selected DinoV2 model.
+
+      :type: str
+
+
+   .. py:method:: feature_extraction(image)
+
+      Extract features from a PIL image using the selected HuggingFace DinoV2 model.
+
+      :param image: The image to extract features from.
+      :type image: PIL.Image.Image
+
+      :returns: A 1-D NumPy array. The number of features depend on the specific model: 384 for small, 768 for base,
+                1024 for large, and 1536 for giant.
+      :rtype: numpy.ndarray
+
+
