@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>synthval.utilities &#8212; SynthVal 0.01a documentation</title>
+    <title>synthval.features_extraction.InceptionExtractor &#8212; SynthVal 0.01a documentation</title>
   
   
   
@@ -39,11 +39,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f9200032"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/utilities/index';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/features_extraction/InceptionExtractor';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="synthval.utilities.FeaturesDataset" href="FeaturesDataset.html" />
-    <link rel="prev" title="synthval.metrics.InceptionScore" href="../metrics/InceptionScore.html" />
+    <link rel="next" title="synthval.metrics" href="../metrics/index.html" />
+    <link rel="prev" title="synthval.features_extraction.MambaFeatureExtractor" href="MambaFeatureExtractor.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -263,12 +263,12 @@ document.write(`
   <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../index.html">synthval</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../configs/index.html">synthval.configs</a></li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../features_extraction/index.html">synthval.features_extraction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="../features_extraction/FeatureExtractor.html">synthval.features_extraction.FeatureExtractor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features_extraction/RadDinoFeatureExtractor.html">synthval.features_extraction.RadDinoFeatureExtractor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features_extraction/DinoV2FeatureExtractor.html">synthval.features_extraction.DinoV2FeatureExtractor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features_extraction/MambaFeatureExtractor.html">synthval.features_extraction.MambaFeatureExtractor</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../features_extraction/InceptionExtractor.html">synthval.features_extraction.InceptionExtractor</a></li>
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">synthval.features_extraction</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="FeatureExtractor.html">synthval.features_extraction.FeatureExtractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="RadDinoFeatureExtractor.html">synthval.features_extraction.RadDinoFeatureExtractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="DinoV2FeatureExtractor.html">synthval.features_extraction.DinoV2FeatureExtractor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="MambaFeatureExtractor.html">synthval.features_extraction.MambaFeatureExtractor</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">synthval.features_extraction.InceptionExtractor</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../metrics/index.html">synthval.metrics</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -281,8 +281,8 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="../metrics/InceptionScore.html">synthval.metrics.InceptionScore</a></li>
 </ul>
 </details></li>
-<li class="toctree-l2 current active has-children"><a class="current reference internal" href="#">synthval.utilities</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l3"><a class="reference internal" href="FeaturesDataset.html">synthval.utilities.FeaturesDataset</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../utilities/index.html">synthval.utilities</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3"><a class="reference internal" href="../utilities/FeaturesDataset.html">synthval.utilities.FeaturesDataset</a></li>
 </ul>
 </details></li>
 </ul>
@@ -316,6 +316,8 @@ document.write(`
 
 
 
+
+
 <nav aria-label="Breadcrumb" class="d-print-none">
   <ul class="bd-breadcrumbs">
     
@@ -328,9 +330,12 @@ document.write(`
     <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">API Reference</a></li>
     
     
-    <li class="breadcrumb-item"><a href="../index.html" class="nav-link">synthval</a></li>
+    <li class="breadcrumb-item"><i class="fa-solid fa-ellipsis"></i></li>
     
-    <li class="breadcrumb-item active" aria-current="page">synthval.utilities</li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">synthval.features_extraction</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page">synthval.fea...</li>
   </ul>
 </nav>
 </div>
@@ -347,93 +352,65 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-synthval.utilities">
-<span id="synthval-utilities"></span><h1>synthval.utilities<a class="headerlink" href="#module-synthval.utilities" title="Permalink to this heading">#</a></h1>
-<p>Module providing utility functions and classes for handling image datasets and feature extraction.</p>
-<p>This module contains utility functions for image processing, such as converting DICOM and other image formats to
-PIL Images, and managing datasets of extracted features for training and testing. The dataset management is
-integrated with pyNeVer’s training and testing strategies.</p>
-<section id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this heading">#</a></h2>
-<dl class="simple">
-<dt>get_stream_logger(logger_origin: str) -&gt; logging.Logger</dt><dd><p>Utility function to instantiate a stream logger.</p>
-</dd>
-<dt>get_pil_image(image_path: str) -&gt; PIL.Image.Image</dt><dd><p>Utility function to convert a DICOM or generic image file to a PIL Image.</p>
-</dd>
-</dl>
-</section>
-<section id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h2>
-<dl class="simple">
-<dt>FeaturesDataset(pynever.datasets.Dataset)</dt><dd><p>A dataset class for managing features extracted from original and synthetically generated images for use in
-PyNEVER training and testing.</p>
-</dd>
-</dl>
-</section>
-<section id="id1">
-<h2>Classes<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h2>
-<div class="toctree-wrapper compound">
-</div>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="FeaturesDataset.html#synthval.utilities.FeaturesDataset" title="synthval.utilities.FeaturesDataset"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FeaturesDataset</span></code></a></p></td>
-<td><p>Utility class for the management of the dataset composed by the feature extracted from the original images</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="id2">
-<h2>Functions<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h2>
-<div class="pst-scrollable-table-container"><table class="autosummary longtable table autosummary">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="#synthval.utilities.get_stream_logger" title="synthval.utilities.get_stream_logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_stream_logger</span></code></a>(logger_origin)</p></td>
-<td><p>Utility function to instantiate a stream logger.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="#synthval.utilities.get_pil_image" title="synthval.utilities.get_pil_image"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_pil_image</span></code></a>(image_path)</p></td>
-<td><p>Utility function to convert a .dcm or generic image to a PIL Image.</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<section id="module-contents">
-<h2>Module Contents<a class="headerlink" href="#module-contents" title="Permalink to this heading">#</a></h2>
-<dl class="py function">
-<dt class="sig sig-object py" id="synthval.utilities.get_stream_logger">
-<span class="sig-prename descclassname"><span class="pre">synthval.utilities.</span></span><span class="sig-name descname"><span class="pre">get_stream_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger_origin</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.utilities.get_stream_logger" title="Permalink to this definition">#</a></dt>
-<dd><p>Utility function to instantiate a stream logger.</p>
+  <section id="synthval-features-extraction-inceptionextractor">
+<h1>synthval.features_extraction.InceptionExtractor<a class="headerlink" href="#synthval-features-extraction-inceptionextractor" title="Permalink to this heading">#</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.features_extraction.</span></span><span class="sig-name descname"><span class="pre">InceptionExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_probabilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">FeatureExtractor</span></code></p>
+<p>Feature extractor using traditional Inception models from the timm library (<a class="reference external" href="https://huggingface.co/docs/timm/index">https://huggingface.co/docs/timm/index</a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>logger_origin</strong> (<em>str</em>) – Origin of the logger.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model_id</strong> (<em>str</em>) – </p></li>
+<li><p><strong>get_probabilities</strong> (<em>bool</em>) – </p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The stream logger.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>logging.Logger</p>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.model_id">
+<span class="sig-name descname"><span class="pre">model_id</span></span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.model_id" title="Permalink to this definition">#</a></dt>
+<dd><p>Timm model ID for the selected Inception model (should be one among inception_v3 and inception_v4).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py function">
-<dt class="sig sig-object py" id="synthval.utilities.get_pil_image">
-<span class="sig-prename descclassname"><span class="pre">synthval.utilities.</span></span><span class="sig-name descname"><span class="pre">get_pil_image</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.utilities.get_pil_image" title="Permalink to this definition">#</a></dt>
-<dd><p>Utility function to convert a .dcm or generic image to a PIL Image.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.get_probabilities">
+<span class="sig-name descname"><span class="pre">get_probabilities</span></span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.get_probabilities" title="Permalink to this definition">#</a></dt>
+<dd><p>Flag controlling if the extractor should provide the model prediction over the
+ImageNet (<a class="reference external" href="https://www.image-net.org">https://www.image-net.org</a>) classes. We provide this capability for the computation of the
+Inception Score (default: False).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>image_path</strong> (<em>str</em>) – Path to the image to convert.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The converted PIL Image.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>PIL.Image</p>
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool, Optional</p>
 </dd>
 </dl>
 </dd></dl>
 
-</section>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.feature_extraction">
+<span class="sig-name descname"><span class="pre">feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.feature_extraction" title="Permalink to this definition">#</a></dt>
+<dd><p>Extract features (or probabilities if get_probabilities is set) from a PIL image using the selected
+Timm Inception model.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>PIL.Image.Image</em>) – The image to extract features from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A 1-D NumPy array of 2048 features (or probabilities).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
 </section>
 
 
@@ -447,20 +424,20 @@ PyNEVER training and testing.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../metrics/InceptionScore.html"
+       href="MambaFeatureExtractor.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">synthval.metrics.InceptionScore</p>
+        <p class="prev-next-title">synthval.features_extraction.MambaFeatureExtractor</p>
       </div>
     </a>
     <a class="right-next"
-       href="FeaturesDataset.html"
+       href="../metrics/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">synthval.utilities.FeaturesDataset</p>
+        <p class="prev-next-title">synthval.metrics</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -482,13 +459,10 @@ PyNEVER training and testing.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Classes</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Functions</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.utilities.get_stream_logger"><code class="docutils literal notranslate"><span class="pre">get_stream_logger()</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.utilities.get_pil_image"><code class="docutils literal notranslate"><span class="pre">get_pil_image()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.InceptionExtractor"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.InceptionExtractor</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.InceptionExtractor.model_id"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.InceptionExtractor.model_id</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.InceptionExtractor.get_probabilities"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.InceptionExtractor.get_probabilities</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.InceptionExtractor.feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.InceptionExtractor.feature_extraction()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -497,7 +471,7 @@ PyNEVER training and testing.</p>
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../../../_sources/autoapi/synthval/utilities/index.rst.txt">
+    <a href="../../../_sources/autoapi/synthval/features_extraction/InceptionExtractor.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

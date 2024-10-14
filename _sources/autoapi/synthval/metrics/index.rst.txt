@@ -40,6 +40,7 @@ Classes
    /autoapi/synthval/metrics/EnergyDistance
    /autoapi/synthval/metrics/MeanMahalanobisDistance
    /autoapi/synthval/metrics/FCNNAccuracyMetric
+   /autoapi/synthval/metrics/InceptionScore
 
 .. autoapisummary::
 
@@ -49,5 +50,6 @@ Classes
    synthval.metrics.EnergyDistance
    synthval.metrics.MeanMahalanobisDistance
    synthval.metrics.FCNNAccuracyMetric
+   synthval.metrics.InceptionScore
 
 

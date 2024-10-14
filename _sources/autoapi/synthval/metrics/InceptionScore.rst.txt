@@ -1,0 +1,28 @@
+synthval.metrics.InceptionScore
+===============================
+
+.. py:class:: synthval.metrics.InceptionScore(num_splits = 10)
+
+   Concrete Class for computing the Inception Score over a set of given probabilities. As proposed in:
+   https://proceedings.neurips.cc/paper_files/paper/2016/file/8a3363abe792db2d8761d6403605aeb7-Paper.pdf.
+   As suggested from the authors, this metric should be evaluated only on a large enough number of samples
+   (i.e., >= 50k).
+
+   .. attribute:: num_splits
+
+      Number of splits to use for the probabilities.
+
+      :type: int, Optional
+
+
+   .. py:method:: calculate(probabilities_df)
+
+      Compute the inception score over a set of probabilities provided as parameter.
+
+      :param probabilities_df: Set of probabilities over which to compute the inception score.
+      :type probabilities_df: pandas.DataFrame
+
+      :returns: **out** -- Contains the mean and the standard deviation of the computed scores.
+      :rtype: typing.Tuple
+
+

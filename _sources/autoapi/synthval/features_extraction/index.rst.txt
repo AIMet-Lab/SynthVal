@@ -21,6 +21,8 @@ synthval.features_extraction
        Concrete feature extractor using models from the HuggingFace DinoV2 family.
    MambaFeatureExtractor(FeatureExtractor)
        Concrete feature extractor using models from the HuggingFace MambaVision family.
+   InceptionExtractor(FeatureExtractor)
+       Concrete feature extractor using traditional Inception models from the timm library.
 
 
 
@@ -34,6 +36,7 @@ Classes
    /autoapi/synthval/features_extraction/RadDinoFeatureExtractor
    /autoapi/synthval/features_extraction/DinoV2FeatureExtractor
    /autoapi/synthval/features_extraction/MambaFeatureExtractor
+   /autoapi/synthval/features_extraction/InceptionExtractor
 
 .. autoapisummary::
 
@@ -41,5 +44,6 @@ Classes
    synthval.features_extraction.RadDinoFeatureExtractor
    synthval.features_extraction.DinoV2FeatureExtractor
    synthval.features_extraction.MambaFeatureExtractor
+   synthval.features_extraction.InceptionExtractor
 
 
