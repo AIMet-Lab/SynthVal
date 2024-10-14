@@ -22,7 +22,6 @@ FCNNAccuracyMetric(SimilarityMetric)
 
 """
 
-
 import abc
 
 import numpy as np
@@ -31,13 +30,14 @@ import scipy.stats as sci_stats
 import dcor
 import pandas
 
-import synthval.utilities as utilities
+import synthval.utilities
 import pynever.strategies.training
 import pynever.networks
 import pynever.nodes
 import sklearn.utils
 import torch
 import synthval.configs
+import typing
 
 
 class SimilarityMetric(abc.ABC):
@@ -203,7 +203,6 @@ class MeanMahalanobisDistance(SimilarityMetric):
         super().__init__()
 
     def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
-
         """
         Compute an estimation of the Mahalanobis Distance between two distributions as a mean of
         the Mahalanobis Distance computed over each sample of the first against the second.
@@ -264,7 +263,6 @@ class FCNNAccuracyMetric(SimilarityMetric):
                  network_params: dict = synthval.configs.DEFAULT_NETWORK_PARAMS,
                  training_params: dict = synthval.configs.DEFAULT_TRAINING_PARAMS,
                  testing_params: dict = synthval.configs.DEFAULT_TESTING_PARAMS):
-
         self.test_percentage = test_percentage
         self.rng_seed = rng_seed
         self.network_params = network_params
@@ -274,7 +272,6 @@ class FCNNAccuracyMetric(SimilarityMetric):
         super().__init__()
 
     def __build_metric_network(self, input_dim, output_dim) -> pynever.networks.SequentialNetwork:
-
         num_hidden_neurons = self.network_params['num_hidden_neurons']
         network_id = self.network_params['network_id']
         pyn_net = pynever.networks.SequentialNetwork(network_id, "X")
@@ -295,7 +292,6 @@ class FCNNAccuracyMetric(SimilarityMetric):
 
     def __train_metric_network(self, net, dataset: synthval.utilities.FeaturesDataset) -> \
             pynever.networks.SequentialNetwork:
-
         train_params = self.training_params
         optimizer_con = train_params["optimizer_con"]
         opt_params = train_params["opt_params"]
@@ -338,7 +334,6 @@ class FCNNAccuracyMetric(SimilarityMetric):
         return trained_net
 
     def __test_metric_network(self, net, dataset: synthval.utilities.FeaturesDataset) -> float:
-
         test_params = self.testing_params
         metric = test_params["metric"]
         metric_params = test_params["metric_params"]
@@ -385,3 +380,48 @@ class FCNNAccuracyMetric(SimilarityMetric):
         final_accuracy = self.__test_metric_network(trained_net, dataset)
         return final_accuracy
 
+
+class InceptionScore:
+    """
+    Concrete Class for computing the Inception Score over a set of given probabilities. As proposed in:
+    https://proceedings.neurips.cc/paper_files/paper/2016/file/8a3363abe792db2d8761d6403605aeb7-Paper.pdf.
+    As suggested from the authors, this metric should be evaluated only on a large enough number of samples
+    (i.e., >= 50k).
+
+    Attributes
+    ----------
+    num_splits : int, Optional
+        Number of splits to use for the probabilities.
+
+    """
+
+    def __init__(self, num_splits: int = 10):
+        self.num_splits = num_splits
+
+    def calculate(self, probabilities_df: pandas.DataFrame) -> (float, float):
+        """
+        Compute the inception score over a set of probabilities provided as parameter.
+
+        Parameters
+        ----------
+        probabilities_df : pandas.DataFrame
+            Set of probabilities over which to compute the inception score.
+
+        Returns
+        -------
+        out : typing.Tuple
+            Contains the mean and the standard deviation of the computed scores.
+
+        """
+
+        probabilities = probabilities_df.to_numpy()
+        num_probabilities = probabilities.shape[0]
+        scores = []
+        for i in range(self.num_splits):
+            part = probabilities[
+                   i * num_probabilities // self.num_splits: (i + 1) * num_probabilities // self.num_splits]
+            kl = part * (np.log(part) - np.log(np.mean(part, axis=0, keepdims=True)))
+            kl = np.mean(np.sum(kl, axis=1))
+            scores.append(np.exp(kl))
+
+        return float(np.mean(scores)), float(np.std(scores))

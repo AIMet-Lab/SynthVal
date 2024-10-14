@@ -15,6 +15,8 @@ DinoV2FeatureExtractor(FeatureExtractor)
     Concrete feature extractor using models from the HuggingFace DinoV2 family.
 MambaFeatureExtractor(FeatureExtractor)
     Concrete feature extractor using models from the HuggingFace MambaVision family.
+InceptionExtractor(FeatureExtractor)
+    Concrete feature extractor using traditional Inception models from the timm library.
 
 """
 
@@ -29,6 +31,10 @@ import synthval
 import numpy
 import torch
 import transformers
+
+
+import timm
+import timm.data
 import timm.data.transforms_factory
 
 
@@ -305,3 +311,80 @@ class MambaFeatureExtractor(FeatureExtractor):
         out_avg_pool, features = model(inputs)
 
         return out_avg_pool.detach().cpu().numpy().squeeze()
+
+
+class InceptionExtractor(FeatureExtractor):
+    """
+    Feature extractor using traditional Inception models from the timm library (https://huggingface.co/docs/timm/index).
+
+    Attributes
+    ----------
+    model_id : str
+        Timm model ID for the selected Inception model (should be one among inception_v3 and inception_v4).
+
+    get_probabilities : bool, Optional
+        Flag controlling if the extractor should provide the model prediction over the
+        ImageNet (https://www.image-net.org) classes. We provide this capability for the computation of the
+        Inception Score (default: False).
+
+    """
+
+    def __init__(self, model_id: str, get_probabilities: bool = False):
+        FeatureExtractor.__init__(self)
+        self.model_id = model_id
+        self.get_probabilities = get_probabilities
+
+    def feature_extraction(self, image: PIL.Image.Image) -> numpy.ndarray:
+        """
+        Extract features (or probabilities if get_probabilities is set) from a PIL image using the selected
+        Timm Inception model.
+
+        Parameters
+        ----------
+        image : PIL.Image.Image
+            The image to extract features from.
+
+        Returns
+        -------
+        numpy.ndarray
+            A 1-D NumPy array of 2048 features (or probabilities).
+        """
+
+        # Load the specified MambaVision model from HuggingFace
+
+        if self.get_probabilities:
+            model = timm.create_model(self.model_id, pretrained=True)
+        else:
+            model = timm.create_model(self.model_id, pretrained=True, num_classes=0)
+
+        # Switch the model to evaluation mode
+        model.eval()
+
+        # Prepare image for the model and convert to tensor. Inception models expects images in RGB.
+        image = image.convert('RGB')
+
+        # Prepare the image using the model's specified resolution and transforms
+        config = timm.data.resolve_data_config({}, model=model)
+        transform = timm.data.transforms_factory.create_transform(**config)
+
+        inputs = transform(image).unsqueeze(0)
+
+        # Selecting the device to use for torch back-end.
+        if torch.cuda.is_available():
+            device = torch.device("cuda")
+        elif torch.mps.is_available():
+            device = torch.device("mps")
+        else:
+            device = torch.device("cpu")
+
+        # Passing inputs and models to the selected device
+        inputs.to(device)
+        model.to(device)
+
+        with torch.no_grad():
+            out = model(inputs)
+
+        if self.get_probabilities:
+            out = torch.nn.functional.softmax(out[0], dim=0)
+
+        return out.detach().cpu().numpy().squeeze()

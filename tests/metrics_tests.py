@@ -1,7 +1,7 @@
 import pandas
 
 import synthval.metrics
-import synthval.feature_extraction
+import synthval.features_extraction
 import torch
 import pynever.strategies.training
 
@@ -72,9 +72,17 @@ def test_fcnn_accuracy():
     metric.calculate(ori_features_df, gen_features_df)
 
 
+def test_inception_score():
+
+    probabilities_df = pandas.read_csv("test_data/test_probabilities.csv", header=None)
+    metric = synthval.metrics.InceptionScore()
+    metric.calculate(probabilities_df)
+
+
 if __name__ == '__main__':
     test_kl_divergence()
     test_wasserstein_distance()
     test_energy_distance()
     test_mahalanobis_distance()
     test_fcnn_accuracy()
+    test_inception_score()
