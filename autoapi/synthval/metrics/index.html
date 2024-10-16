@@ -279,6 +279,9 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="MeanMahalanobisDistance.html">synthval.metrics.MeanMahalanobisDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="FCNNAccuracyMetric.html">synthval.metrics.FCNNAccuracyMetric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="InceptionScore.html">synthval.metrics.InceptionScore</a></li>
+<li class="toctree-l3"><a class="reference internal" href="FrechetDistance.html">synthval.metrics.FrechetDistance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="KernelDistance.html">synthval.metrics.KernelDistance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="PRScores.html">synthval.metrics.PRScores</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../utilities/index.html">synthval.utilities</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -352,7 +355,9 @@ document.write(`
 <p>Module for computing various similarity metrics between two sets of samples originating from multivariate distributions.</p>
 <p>This module defines abstract and concrete classes for computing similarity metrics between samples from two
 distributions. The available metrics include Kullback-Leibler divergence, Wasserstein distance, Energy distance,
-Mean Mahalanobis distance, and a machine learning-based accuracy metric using fully connected neural networks.</p>
+Mean Mahalanobis distance, Frechet Distance, Inception Score, Kernel Distances and others.
+It should be noted that dist_p usually represent the reference distribution, whereas dist_q represent the distribution
+we wish to evaluate.</p>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Permalink to this heading">#</a></h2>
 <dl class="simple">
@@ -367,6 +372,14 @@ Mean Mahalanobis distance, and a machine learning-based accuracy metric using fu
 <dt>MeanMahalanobisDistance(SimilarityMetric)</dt><dd><p>Concrete implementation of the mean Mahalanobis distance.</p>
 </dd>
 <dt>FCNNAccuracyMetric(SimilarityMetric)</dt><dd><p>Concrete implementation of an accuracy metric based on fully-connected neural networks.</p>
+</dd>
+<dt>InceptionScore()</dt><dd><p>Evaluation metrics for generated images.</p>
+</dd>
+<dt>FrechetDistance(SimilarityMetric)</dt><dd><p>Concrete implementation of the Frechet distance.</p>
+</dd>
+<dt>KernelDistance(SimilarityMetric)</dt><dd><p>Concrete implementation of the Kernel distance.</p>
+</dd>
+<dt>PRScore(SimilarityMetric)</dt><dd><p>Concrete implementation of the Precision and Recall Scores.</p>
 </dd>
 </dl>
 </section>
@@ -395,7 +408,16 @@ Mean Mahalanobis distance, and a machine learning-based accuracy metric using fu
 <td><p>Similarity Metric computing the Accuracy of a fully-connected neural networks trained to distinguish between the</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="InceptionScore.html#synthval.metrics.InceptionScore" title="synthval.metrics.InceptionScore"><code class="xref py py-obj docutils literal notranslate"><span class="pre">InceptionScore</span></code></a></p></td>
-<td><p>Concrete Class for computing the Inception Score over a set of given probabilities. As proposed in:</p></td>
+<td><p>Class for computing the Inception Score over a set of probabilities.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="FrechetDistance.html#synthval.metrics.FrechetDistance" title="synthval.metrics.FrechetDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">FrechetDistance</span></code></a></p></td>
+<td><p>Similarity Metric that computes the Frechet distance (also known as Fréchet Inception Distance) between two</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="KernelDistance.html#synthval.metrics.KernelDistance" title="synthval.metrics.KernelDistance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KernelDistance</span></code></a></p></td>
+<td><p>Similarity Metric that computes the Kernel distance between two distributions using provided samples.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="PRScores.html#synthval.metrics.PRScores" title="synthval.metrics.PRScores"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PRScores</span></code></a></p></td>
+<td><p>A Similarity Metric class that computes the Precision and Recall scores between two distributions</p></td>
 </tr>
 </tbody>
 </table>

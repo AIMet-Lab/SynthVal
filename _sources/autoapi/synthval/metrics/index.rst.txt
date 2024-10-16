@@ -9,7 +9,9 @@ synthval.metrics
 
    This module defines abstract and concrete classes for computing similarity metrics between samples from two
    distributions. The available metrics include Kullback-Leibler divergence, Wasserstein distance, Energy distance,
-   Mean Mahalanobis distance, and a machine learning-based accuracy metric using fully connected neural networks.
+   Mean Mahalanobis distance, Frechet Distance, Inception Score, Kernel Distances and others.
+   It should be noted that dist_p usually represent the reference distribution, whereas dist_q represent the distribution
+   we wish to evaluate.
 
    Classes
    -------
@@ -25,6 +27,14 @@ synthval.metrics
        Concrete implementation of the mean Mahalanobis distance.
    FCNNAccuracyMetric(SimilarityMetric)
        Concrete implementation of an accuracy metric based on fully-connected neural networks.
+   InceptionScore()
+       Evaluation metrics for generated images.
+   FrechetDistance(SimilarityMetric)
+       Concrete implementation of the Frechet distance.
+   KernelDistance(SimilarityMetric)
+       Concrete implementation of the Kernel distance.
+   PRScore(SimilarityMetric)
+       Concrete implementation of the Precision and Recall Scores.
 
 
 
@@ -41,6 +51,9 @@ Classes
    /autoapi/synthval/metrics/MeanMahalanobisDistance
    /autoapi/synthval/metrics/FCNNAccuracyMetric
    /autoapi/synthval/metrics/InceptionScore
+   /autoapi/synthval/metrics/FrechetDistance
+   /autoapi/synthval/metrics/KernelDistance
+   /autoapi/synthval/metrics/PRScores
 
 .. autoapisummary::
 
@@ -51,5 +64,8 @@ Classes
    synthval.metrics.MeanMahalanobisDistance
    synthval.metrics.FCNNAccuracyMetric
    synthval.metrics.InceptionScore
+   synthval.metrics.FrechetDistance
+   synthval.metrics.KernelDistance
+   synthval.metrics.PRScores
 
 

@@ -277,8 +277,10 @@ document.write(`
 <h1 id="index">Index</h1>
 
 <div class="genindex-jumpbox">
- <a href="#C"><strong>C</strong></a>
+ <a href="#_"><strong>_</strong></a>
+ | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#M"><strong>M</strong></a>
@@ -288,6 +290,14 @@ document.write(`
  | <a href="#T"><strong>T</strong></a>
  
 </div>
+<h2 id="_">_</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="autoapi/synthval/metrics/PRScores.html#synthval.metrics.PRScores.__compute_distances">__compute_distances() (synthval.metrics.PRScores static method)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -296,17 +306,27 @@ document.write(`
       <ul>
         <li><a href="autoapi/synthval/metrics/FCNNAccuracyMetric.html#synthval.metrics.FCNNAccuracyMetric.calculate">(synthval.metrics.FCNNAccuracyMetric method)</a>
 </li>
+        <li><a href="autoapi/synthval/metrics/FrechetDistance.html#synthval.metrics.FrechetDistance.calculate">(synthval.metrics.FrechetDistance method)</a>
+</li>
         <li><a href="autoapi/synthval/metrics/InceptionScore.html#synthval.metrics.InceptionScore.calculate">(synthval.metrics.InceptionScore method)</a>
+</li>
+        <li><a href="autoapi/synthval/metrics/KernelDistance.html#synthval.metrics.KernelDistance.calculate">(synthval.metrics.KernelDistance method)</a>
 </li>
         <li><a href="autoapi/synthval/metrics/KLDivergenceEstimation.html#synthval.metrics.KLDivergenceEstimation.calculate">(synthval.metrics.KLDivergenceEstimation method)</a>
 </li>
         <li><a href="autoapi/synthval/metrics/MeanMahalanobisDistance.html#synthval.metrics.MeanMahalanobisDistance.calculate">(synthval.metrics.MeanMahalanobisDistance method)</a>
+</li>
+        <li><a href="autoapi/synthval/metrics/PRScores.html#synthval.metrics.PRScores.calculate">(synthval.metrics.PRScores method)</a>
 </li>
         <li><a href="autoapi/synthval/metrics/SimilarityMetric.html#synthval.metrics.SimilarityMetric.calculate">(synthval.metrics.SimilarityMetric method)</a>
 </li>
         <li><a href="autoapi/synthval/metrics/WassersteinDistance.html#synthval.metrics.WassersteinDistance.calculate">(synthval.metrics.WassersteinDistance method)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="autoapi/synthval/metrics/PRScores.html#synthval.metrics.PRScores.col_batch_size">col_batch_size (synthval.metrics.PRScores attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -320,6 +340,14 @@ document.write(`
       <li><a href="autoapi/synthval/configs/index.html#synthval.configs.DEFAULT_TESTING_PARAMS">DEFAULT_TESTING_PARAMS (in module synthval.configs)</a>
 </li>
       <li><a href="autoapi/synthval/configs/index.html#synthval.configs.DEFAULT_TRAINING_PARAMS">DEFAULT_TRAINING_PARAMS (in module synthval.configs)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="autoapi/synthval/metrics/FrechetDistance.html#synthval.metrics.FrechetDistance.eps">eps (synthval.metrics.FrechetDistance attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -363,6 +391,10 @@ document.write(`
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="autoapi/synthval/metrics/KernelDistance.html#synthval.metrics.KernelDistance.max_samples">max_samples (synthval.metrics.KernelDistance attribute)</a>
+</li>
+      <li><a href="autoapi/synthval/metrics/KernelDistance.html#synthval.metrics.KernelDistance.max_subset_size">max_subset_size (synthval.metrics.KernelDistance attribute)</a>
+</li>
       <li><a href="autoapi/synthval/features_extraction/DinoV2FeatureExtractor.html#synthval.features_extraction.DinoV2FeatureExtractor.model_id">model_id (synthval.features_extraction.DinoV2FeatureExtractor attribute)</a>
 
       <ul>
@@ -371,6 +403,8 @@ document.write(`
         <li><a href="autoapi/synthval/features_extraction/MambaFeatureExtractor.html#synthval.features_extraction.MambaFeatureExtractor.model_id">(synthval.features_extraction.MambaFeatureExtractor attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     module
 
@@ -394,9 +428,13 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/synthval/metrics/FCNNAccuracyMetric.html#synthval.metrics.FCNNAccuracyMetric.network_params">network_params (synthval.metrics.FCNNAccuracyMetric attribute)</a>
 </li>
+      <li><a href="autoapi/synthval/metrics/PRScores.html#synthval.metrics.PRScores.num_nearest_n">num_nearest_n (synthval.metrics.PRScores attribute)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/synthval/metrics/InceptionScore.html#synthval.metrics.InceptionScore.num_splits">num_splits (synthval.metrics.InceptionScore attribute)</a>
+</li>
+      <li><a href="autoapi/synthval/metrics/KernelDistance.html#synthval.metrics.KernelDistance.num_subsets">num_subsets (synthval.metrics.KernelDistance attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -405,6 +443,10 @@ document.write(`
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/synthval/metrics/FCNNAccuracyMetric.html#synthval.metrics.FCNNAccuracyMetric.rng_seed">rng_seed (synthval.metrics.FCNNAccuracyMetric attribute)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="autoapi/synthval/metrics/PRScores.html#synthval.metrics.PRScores.row_batch_size">row_batch_size (synthval.metrics.PRScores attribute)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -443,8 +485,6 @@ document.write(`
 </li>
       <li><a href="autoapi/synthval/features_extraction/RadDinoFeatureExtractor.html#synthval.features_extraction.RadDinoFeatureExtractor">synthval.features_extraction.RadDinoFeatureExtractor (built-in class)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     synthval.metrics
 
@@ -452,15 +492,23 @@ document.write(`
         <li><a href="autoapi/synthval/metrics/index.html#module-synthval.metrics">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="autoapi/synthval/metrics/EnergyDistance.html#synthval.metrics.EnergyDistance">synthval.metrics.EnergyDistance (built-in class)</a>
 </li>
       <li><a href="autoapi/synthval/metrics/FCNNAccuracyMetric.html#synthval.metrics.FCNNAccuracyMetric">synthval.metrics.FCNNAccuracyMetric (built-in class)</a>
 </li>
+      <li><a href="autoapi/synthval/metrics/FrechetDistance.html#synthval.metrics.FrechetDistance">synthval.metrics.FrechetDistance (built-in class)</a>
+</li>
       <li><a href="autoapi/synthval/metrics/InceptionScore.html#synthval.metrics.InceptionScore">synthval.metrics.InceptionScore (built-in class)</a>
+</li>
+      <li><a href="autoapi/synthval/metrics/KernelDistance.html#synthval.metrics.KernelDistance">synthval.metrics.KernelDistance (built-in class)</a>
 </li>
       <li><a href="autoapi/synthval/metrics/KLDivergenceEstimation.html#synthval.metrics.KLDivergenceEstimation">synthval.metrics.KLDivergenceEstimation (built-in class)</a>
 </li>
       <li><a href="autoapi/synthval/metrics/MeanMahalanobisDistance.html#synthval.metrics.MeanMahalanobisDistance">synthval.metrics.MeanMahalanobisDistance (built-in class)</a>
+</li>
+      <li><a href="autoapi/synthval/metrics/PRScores.html#synthval.metrics.PRScores">synthval.metrics.PRScores (built-in class)</a>
 </li>
       <li><a href="autoapi/synthval/metrics/SimilarityMetric.html#synthval.metrics.SimilarityMetric">synthval.metrics.SimilarityMetric (built-in class)</a>
 </li>

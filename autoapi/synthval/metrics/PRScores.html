@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>synthval.metrics.SimilarityMetric &#8212; SynthVal 0.01a documentation</title>
+    <title>synthval.metrics.PRScores &#8212; SynthVal 0.01a documentation</title>
   
   
   
@@ -39,11 +39,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f9200032"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/metrics/SimilarityMetric';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/metrics/PRScores';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="synthval.metrics.KLDivergenceEstimation" href="KLDivergenceEstimation.html" />
-    <link rel="prev" title="synthval.metrics" href="index.html" />
+    <link rel="next" title="synthval.utilities" href="../utilities/index.html" />
+    <link rel="prev" title="synthval.metrics.KernelDistance" href="KernelDistance.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -272,7 +272,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">synthval.metrics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">synthval.metrics.SimilarityMetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SimilarityMetric.html">synthval.metrics.SimilarityMetric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="KLDivergenceEstimation.html">synthval.metrics.KLDivergenceEstimation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="WassersteinDistance.html">synthval.metrics.WassersteinDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="EnergyDistance.html">synthval.metrics.EnergyDistance</a></li>
@@ -281,7 +281,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="InceptionScore.html">synthval.metrics.InceptionScore</a></li>
 <li class="toctree-l3"><a class="reference internal" href="FrechetDistance.html">synthval.metrics.FrechetDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="KernelDistance.html">synthval.metrics.KernelDistance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="PRScores.html">synthval.metrics.PRScores</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">synthval.metrics.PRScores</a></li>
 </ul>
 </details></li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../utilities/index.html">synthval.utilities</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
@@ -355,32 +355,102 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="synthval-metrics-similaritymetric">
-<h1>synthval.metrics.SimilarityMetric<a class="headerlink" href="#synthval-metrics-similaritymetric" title="Permalink to this heading">#</a></h1>
+  <section id="synthval-metrics-prscores">
+<h1>synthval.metrics.PRScores<a class="headerlink" href="#synthval-metrics-prscores" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="synthval.metrics.SimilarityMetric">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">SimilarityMetric</span></span><a class="headerlink" href="#synthval.metrics.SimilarityMetric" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Abstract base class representing a generic similarity metric between two sets of samples originating from
-two multivariate distributions.
-Child classes must implement the concrete <cite>calculate</cite> method for computing the specific metric.</p>
-<dl class="py method">
-<dt class="sig sig-object py" id="synthval.metrics.SimilarityMetric.calculate">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.SimilarityMetric.calculate" title="Permalink to this definition">#</a></dt>
-<dd><p>Abstract method to compute a metric of similarity between two set of samples originating from two multivariate
-distribution P and Q.</p>
+<dt class="sig sig-object py" id="synthval.metrics.PRScores">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">PRScores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nearest_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityMetric</span></code></p>
+<p>A Similarity Metric class that computes the Precision and Recall scores between two distributions
+(dist_p and dist_q).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dist_p_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution P.</p></li>
-<li><p><strong>dist_q_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution Q.</p></li>
+<li><p><strong>row_batch_size</strong> (<em>int</em>) – </p></li>
+<li><p><strong>col_batch_size</strong> (<em>int</em>) – </p></li>
+<li><p><strong>num_nearest_n</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="synthval.metrics.PRScores.row_batch_size">
+<span class="sig-name descname"><span class="pre">row_batch_size</span></span><a class="headerlink" href="#synthval.metrics.PRScores.row_batch_size" title="Permalink to this definition">#</a></dt>
+<dd><p>Size of the row batches used when computing pairwise distances. This provides a trade-off between memory
+usage and performance (default: 25000).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="synthval.metrics.PRScores.col_batch_size">
+<span class="sig-name descname"><span class="pre">col_batch_size</span></span><a class="headerlink" href="#synthval.metrics.PRScores.col_batch_size" title="Permalink to this definition">#</a></dt>
+<dd><p>Size of the column batches used for computing pairwise distances (default: 50000).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="synthval.metrics.PRScores.num_nearest_n">
+<span class="sig-name descname"><span class="pre">num_nearest_n</span></span><a class="headerlink" href="#synthval.metrics.PRScores.num_nearest_n" title="Permalink to this definition">#</a></dt>
+<dd><p>Number of nearest neighbors used to estimate the manifold. The manifold is used for computing precision
+and recall (default: 3).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int, optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">References</p>
+<p>Tuomas Kynkäänniemi, Tero Karras, Samuli Laine, Jaakko Lehtinen, Timo Aila - Improved Precision and Recall
+Metric for Assessing Generative Models - Annual Conference on Neural Information Processing Systems, 2019.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="synthval.metrics.PRScores.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores.calculate" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute Precision and Recall metrics between two distributions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dist_p_df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing samples from distribution P.</p></li>
+<li><p><strong>dist_q_df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing samples from distribution Q.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The value of the metric.</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>precision</strong> (<em>float</em>) – Precision metric between distribution P and Q.</p></li>
+<li><p><strong>recall</strong> (<em>float</em>) – Recall metric between distribution P and Q.</p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p>(float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="synthval.metrics.PRScores.__compute_distances">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__compute_distances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores.__compute_distances" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute pairwise distances between row and column features using batches to optimize memory usage.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>row_features</strong> (<em>torch.Tensor</em>) – Tensor of feature vectors representing the rows.</p></li>
+<li><p><strong>col_features</strong> (<em>torch.Tensor</em>) – Tensor of feature vectors representing the columns.</p></li>
+<li><p><strong>col_batch_size</strong> (<em>int</em>) – Size of the column batches for computing distances.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dist_batches</strong> – Tensor of pairwise distances.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>torch.Tensor</p>
 </dd>
 </dl>
 </dd></dl>
@@ -400,20 +470,20 @@ distribution P and Q.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="KernelDistance.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">synthval.metrics</p>
+        <p class="prev-next-title">synthval.metrics.KernelDistance</p>
       </div>
     </a>
     <a class="right-next"
-       href="KLDivergenceEstimation.html"
+       href="../utilities/index.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">synthval.metrics.KLDivergenceEstimation</p>
+        <p class="prev-next-title">synthval.utilities</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -435,8 +505,12 @@ distribution P and Q.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.SimilarityMetric"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.SimilarityMetric</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.SimilarityMetric.calculate"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.SimilarityMetric.calculate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.PRScores"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.PRScores</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.PRScores.row_batch_size"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.PRScores.row_batch_size</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.PRScores.col_batch_size"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.PRScores.col_batch_size</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.PRScores.num_nearest_n"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.PRScores.num_nearest_n</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.PRScores.calculate"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.PRScores.calculate()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.PRScores.__compute_distances"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.PRScores.__compute_distances()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -445,7 +519,7 @@ distribution P and Q.</p>
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../../../_sources/autoapi/synthval/metrics/SimilarityMetric.rst.txt">
+    <a href="../../../_sources/autoapi/synthval/metrics/PRScores.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

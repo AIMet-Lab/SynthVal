@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>synthval.metrics.SimilarityMetric &#8212; SynthVal 0.01a documentation</title>
+    <title>synthval.metrics.FrechetDistance &#8212; SynthVal 0.01a documentation</title>
   
   
   
@@ -39,11 +39,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f9200032"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/metrics/SimilarityMetric';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/metrics/FrechetDistance';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="synthval.metrics.KLDivergenceEstimation" href="KLDivergenceEstimation.html" />
-    <link rel="prev" title="synthval.metrics" href="index.html" />
+    <link rel="next" title="synthval.metrics.KernelDistance" href="KernelDistance.html" />
+    <link rel="prev" title="synthval.metrics.InceptionScore" href="InceptionScore.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -272,14 +272,14 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">synthval.metrics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">synthval.metrics.SimilarityMetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SimilarityMetric.html">synthval.metrics.SimilarityMetric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="KLDivergenceEstimation.html">synthval.metrics.KLDivergenceEstimation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="WassersteinDistance.html">synthval.metrics.WassersteinDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="EnergyDistance.html">synthval.metrics.EnergyDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="MeanMahalanobisDistance.html">synthval.metrics.MeanMahalanobisDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="FCNNAccuracyMetric.html">synthval.metrics.FCNNAccuracyMetric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="InceptionScore.html">synthval.metrics.InceptionScore</a></li>
-<li class="toctree-l3"><a class="reference internal" href="FrechetDistance.html">synthval.metrics.FrechetDistance</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">synthval.metrics.FrechetDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="KernelDistance.html">synthval.metrics.KernelDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="PRScores.html">synthval.metrics.PRScores</a></li>
 </ul>
@@ -355,20 +355,42 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="synthval-metrics-similaritymetric">
-<h1>synthval.metrics.SimilarityMetric<a class="headerlink" href="#synthval-metrics-similaritymetric" title="Permalink to this heading">#</a></h1>
+  <section id="synthval-metrics-frechetdistance">
+<h1>synthval.metrics.FrechetDistance<a class="headerlink" href="#synthval-metrics-frechetdistance" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="synthval.metrics.SimilarityMetric">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">SimilarityMetric</span></span><a class="headerlink" href="#synthval.metrics.SimilarityMetric" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Abstract base class representing a generic similarity metric between two sets of samples originating from
-two multivariate distributions.
-Child classes must implement the concrete <cite>calculate</cite> method for computing the specific metric.</p>
+<dt class="sig sig-object py" id="synthval.metrics.FrechetDistance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">FrechetDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.FrechetDistance" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityMetric</span></code></p>
+<p>Similarity Metric that computes the Frechet distance (also known as Fréchet Inception Distance) between two
+distributions by comparing their means and covariances.</p>
+<p>When applied to features extracted from the last average pooling layer of the Inception model (e.g., those provided
+by synthval.features_extraction.InceptionExtractor), it corresponds to the standard Frechet Inception Distance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>eps</strong> (<em>float</em>) – </p>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="synthval.metrics.FrechetDistance.eps">
+<span class="sig-name descname"><span class="pre">eps</span></span><a class="headerlink" href="#synthval.metrics.FrechetDistance.eps" title="Permalink to this definition">#</a></dt>
+<dd><p>Small offset added to the covariance matrices to handle numerical issues such as matrix singularity
+(default: 1e-6).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float, Optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">References</p>
+<p>Martin Heusel, Hubert Ramsauer, Thomas Unterthiner, Bernhard Nessler, Sepp Hochreiter - GANs Trained by a Two
+Time-Scale Update Rule Converge to a Local Nash Equilibrium - Annual Conference on Neural Information
+Processing Systems, 2016.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="synthval.metrics.SimilarityMetric.calculate">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.SimilarityMetric.calculate" title="Permalink to this definition">#</a></dt>
-<dd><p>Abstract method to compute a metric of similarity between two set of samples originating from two multivariate
-distribution P and Q.</p>
+<dt class="sig sig-object py" id="synthval.metrics.FrechetDistance.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.FrechetDistance.calculate" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the Frechet distance between two distributions by comparing the mean and covariance of the samples
+provided.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -377,7 +399,11 @@ distribution P and Q.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The value of the metric.</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>out</strong> (<em>float</em>)</p></li>
+<li><p><em>The Frechet Distance.</em></p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
@@ -400,20 +426,20 @@ distribution P and Q.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="InceptionScore.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">synthval.metrics</p>
+        <p class="prev-next-title">synthval.metrics.InceptionScore</p>
       </div>
     </a>
     <a class="right-next"
-       href="KLDivergenceEstimation.html"
+       href="KernelDistance.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">synthval.metrics.KLDivergenceEstimation</p>
+        <p class="prev-next-title">synthval.metrics.KernelDistance</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -435,8 +461,9 @@ distribution P and Q.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.SimilarityMetric"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.SimilarityMetric</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.SimilarityMetric.calculate"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.SimilarityMetric.calculate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.FrechetDistance"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.FrechetDistance</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.FrechetDistance.eps"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.FrechetDistance.eps</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.FrechetDistance.calculate"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.FrechetDistance.calculate()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -445,7 +472,7 @@ distribution P and Q.</p>
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../../../_sources/autoapi/synthval/metrics/SimilarityMetric.rst.txt">
+    <a href="../../../_sources/autoapi/synthval/metrics/FrechetDistance.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

@@ -11,7 +11,7 @@ synthval.metrics.KLDivergenceEstimation
 
    .. rubric:: References
 
-   Pérez-Cruz, F. Kullback-Leibler divergence estimation of continuous distributions IEEE International Symposium
+   Pérez-Cruz, F. - Kullback-Leibler divergence estimation of continuous distributions - IEEE International Symposium
    on Information Theory, 2008.
 
 

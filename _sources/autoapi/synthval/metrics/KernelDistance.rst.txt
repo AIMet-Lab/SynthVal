@@ -1,0 +1,53 @@
+synthval.metrics.KernelDistance
+===============================
+
+.. py:class:: synthval.metrics.KernelDistance(max_samples = 1000000, num_subsets = 100, max_subset_size = 1000)
+
+   Bases: :py:obj:`SimilarityMetric`
+
+
+   Similarity Metric that computes the Kernel distance between two distributions using provided samples.
+
+   If the features extracted are from the last average pooling layer of the Inception model (e.g., from
+   synthval.features_extraction.InceptionExtractor), this metric corresponds to the standard Kernel Inception
+   Distance (KID).
+
+   .. attribute:: max_samples
+
+      Max number of samples to consider in the computation. To use in the case of limited time or hardware
+      capabilities (default: 1000000).
+
+      :type: int, Optional
+
+   .. attribute:: num_subsets
+
+      Number of subset to use for calculating the Kernel distance (default: 100).
+
+      :type: int, Optional
+
+   .. attribute:: max_subset_size
+
+      Maximum size of each subset (default: 1000).
+
+      :type: int, Optional
+
+   .. rubric:: References
+
+   Mikolaj Binkowski, Danica J. Sutherland, Michael Arbel, Arthur Gretton - Demystifying MMD GANs - 6th International
+   Conference on Learning Representations, 2018.
+
+
+   .. py:method:: calculate(dist_p_df, dist_q_df)
+
+      Compute the Kernel distance between two distributions using the samples
+      provided.
+
+      :param dist_p_df: Set of samples representing distribution P.
+      :type dist_p_df: pandas.DataFrame
+      :param dist_q_df: Set of samples representing distribution Q.
+      :type dist_q_df: pandas.DataFrame
+
+      :returns: * **out** (*float*)
+                * *The Kernel Distance.*
+
+

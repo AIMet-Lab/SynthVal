@@ -1,0 +1,68 @@
+synthval.metrics.PRScores
+=========================
+
+.. py:class:: synthval.metrics.PRScores(row_batch_size = 25000, col_batch_size = 50000, num_nearest_n = 3)
+
+   Bases: :py:obj:`SimilarityMetric`
+
+
+   A Similarity Metric class that computes the Precision and Recall scores between two distributions
+   (dist_p and dist_q).
+
+   .. attribute:: row_batch_size
+
+      Size of the row batches used when computing pairwise distances. This provides a trade-off between memory
+      usage and performance (default: 25000).
+
+      :type: int, optional
+
+   .. attribute:: col_batch_size
+
+      Size of the column batches used for computing pairwise distances (default: 50000).
+
+      :type: int, optional
+
+   .. attribute:: num_nearest_n
+
+      Number of nearest neighbors used to estimate the manifold. The manifold is used for computing precision
+      and recall (default: 3).
+
+      :type: int, optional
+
+   .. rubric:: References
+
+   Tuomas Kynkäänniemi, Tero Karras, Samuli Laine, Jaakko Lehtinen, Timo Aila - Improved Precision and Recall
+   Metric for Assessing Generative Models - Annual Conference on Neural Information Processing Systems, 2019.
+
+
+   .. py:method:: calculate(dist_p_df, dist_q_df)
+
+      Compute Precision and Recall metrics between two distributions.
+
+      :param dist_p_df: DataFrame containing samples from distribution P.
+      :type dist_p_df: pandas.DataFrame
+      :param dist_q_df: DataFrame containing samples from distribution Q.
+      :type dist_q_df: pandas.DataFrame
+
+      :returns: * **precision** (*float*) -- Precision metric between distribution P and Q.
+                * **recall** (*float*) -- Recall metric between distribution P and Q.
+
+
+
+   .. py:method:: __compute_distances(row_features, col_features, col_batch_size)
+      :staticmethod:
+
+
+      Compute pairwise distances between row and column features using batches to optimize memory usage.
+
+      :param row_features: Tensor of feature vectors representing the rows.
+      :type row_features: torch.Tensor
+      :param col_features: Tensor of feature vectors representing the columns.
+      :type col_features: torch.Tensor
+      :param col_batch_size: Size of the column batches for computing distances.
+      :type col_batch_size: int
+
+      :returns: **dist_batches** -- Tensor of pairwise distances.
+      :rtype: torch.Tensor
+
+

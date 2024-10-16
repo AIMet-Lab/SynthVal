@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>synthval.metrics.SimilarityMetric &#8212; SynthVal 0.01a documentation</title>
+    <title>synthval.metrics.KernelDistance &#8212; SynthVal 0.01a documentation</title>
   
   
   
@@ -39,11 +39,11 @@
     <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f9200032"></script>
     <script src="../../../_static/doctools.js?v=888ff710"></script>
     <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/metrics/SimilarityMetric';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/metrics/KernelDistance';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
-    <link rel="next" title="synthval.metrics.KLDivergenceEstimation" href="KLDivergenceEstimation.html" />
-    <link rel="prev" title="synthval.metrics" href="index.html" />
+    <link rel="next" title="synthval.metrics.PRScores" href="PRScores.html" />
+    <link rel="prev" title="synthval.metrics.FrechetDistance" href="FrechetDistance.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -272,7 +272,7 @@ document.write(`
 </ul>
 </details></li>
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="index.html">synthval.metrics</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
-<li class="toctree-l3 current active"><a class="current reference internal" href="#">synthval.metrics.SimilarityMetric</a></li>
+<li class="toctree-l3"><a class="reference internal" href="SimilarityMetric.html">synthval.metrics.SimilarityMetric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="KLDivergenceEstimation.html">synthval.metrics.KLDivergenceEstimation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="WassersteinDistance.html">synthval.metrics.WassersteinDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="EnergyDistance.html">synthval.metrics.EnergyDistance</a></li>
@@ -280,7 +280,7 @@ document.write(`
 <li class="toctree-l3"><a class="reference internal" href="FCNNAccuracyMetric.html">synthval.metrics.FCNNAccuracyMetric</a></li>
 <li class="toctree-l3"><a class="reference internal" href="InceptionScore.html">synthval.metrics.InceptionScore</a></li>
 <li class="toctree-l3"><a class="reference internal" href="FrechetDistance.html">synthval.metrics.FrechetDistance</a></li>
-<li class="toctree-l3"><a class="reference internal" href="KernelDistance.html">synthval.metrics.KernelDistance</a></li>
+<li class="toctree-l3 current active"><a class="current reference internal" href="#">synthval.metrics.KernelDistance</a></li>
 <li class="toctree-l3"><a class="reference internal" href="PRScores.html">synthval.metrics.PRScores</a></li>
 </ul>
 </details></li>
@@ -355,20 +355,67 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="synthval-metrics-similaritymetric">
-<h1>synthval.metrics.SimilarityMetric<a class="headerlink" href="#synthval-metrics-similaritymetric" title="Permalink to this heading">#</a></h1>
+  <section id="synthval-metrics-kerneldistance">
+<h1>synthval.metrics.KernelDistance<a class="headerlink" href="#synthval-metrics-kerneldistance" title="Permalink to this heading">#</a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="synthval.metrics.SimilarityMetric">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">SimilarityMetric</span></span><a class="headerlink" href="#synthval.metrics.SimilarityMetric" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Abstract base class representing a generic similarity metric between two sets of samples originating from
-two multivariate distributions.
-Child classes must implement the concrete <cite>calculate</cite> method for computing the specific metric.</p>
+<dt class="sig sig-object py" id="synthval.metrics.KernelDistance">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">KernelDistance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_samples</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_subsets</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_subset_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1000</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.KernelDistance" title="Permalink to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityMetric</span></code></p>
+<p>Similarity Metric that computes the Kernel distance between two distributions using provided samples.</p>
+<p>If the features extracted are from the last average pooling layer of the Inception model (e.g., from
+synthval.features_extraction.InceptionExtractor), this metric corresponds to the standard Kernel Inception
+Distance (KID).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_samples</strong> (<em>int</em>) – </p></li>
+<li><p><strong>num_subsets</strong> (<em>int</em>) – </p></li>
+<li><p><strong>max_subset_size</strong> (<em>int</em>) – </p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="synthval.metrics.KernelDistance.max_samples">
+<span class="sig-name descname"><span class="pre">max_samples</span></span><a class="headerlink" href="#synthval.metrics.KernelDistance.max_samples" title="Permalink to this definition">#</a></dt>
+<dd><p>Max number of samples to consider in the computation. To use in the case of limited time or hardware
+capabilities (default: 1000000).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int, Optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="synthval.metrics.KernelDistance.num_subsets">
+<span class="sig-name descname"><span class="pre">num_subsets</span></span><a class="headerlink" href="#synthval.metrics.KernelDistance.num_subsets" title="Permalink to this definition">#</a></dt>
+<dd><p>Number of subset to use for calculating the Kernel distance (default: 100).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int, Optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="synthval.metrics.KernelDistance.max_subset_size">
+<span class="sig-name descname"><span class="pre">max_subset_size</span></span><a class="headerlink" href="#synthval.metrics.KernelDistance.max_subset_size" title="Permalink to this definition">#</a></dt>
+<dd><p>Maximum size of each subset (default: 1000).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int, Optional</p>
+</dd>
+</dl>
+</dd></dl>
+
+<p class="rubric">References</p>
+<p>Mikolaj Binkowski, Danica J. Sutherland, Michael Arbel, Arthur Gretton - Demystifying MMD GANs - 6th International
+Conference on Learning Representations, 2018.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="synthval.metrics.SimilarityMetric.calculate">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.SimilarityMetric.calculate" title="Permalink to this definition">#</a></dt>
-<dd><p>Abstract method to compute a metric of similarity between two set of samples originating from two multivariate
-distribution P and Q.</p>
+<dt class="sig sig-object py" id="synthval.metrics.KernelDistance.calculate">
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.KernelDistance.calculate" title="Permalink to this definition">#</a></dt>
+<dd><p>Compute the Kernel distance between two distributions using the samples
+provided.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -377,7 +424,11 @@ distribution P and Q.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The value of the metric.</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>out</strong> (<em>float</em>)</p></li>
+<li><p><em>The Kernel Distance.</em></p></li>
+</ul>
+</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>float</p>
@@ -400,20 +451,20 @@ distribution P and Q.</p>
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="index.html"
+       href="FrechetDistance.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">synthval.metrics</p>
+        <p class="prev-next-title">synthval.metrics.FrechetDistance</p>
       </div>
     </a>
     <a class="right-next"
-       href="KLDivergenceEstimation.html"
+       href="PRScores.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">synthval.metrics.KLDivergenceEstimation</p>
+        <p class="prev-next-title">synthval.metrics.PRScores</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -435,8 +486,11 @@ distribution P and Q.</p>
   </div>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.SimilarityMetric"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.SimilarityMetric</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.SimilarityMetric.calculate"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.SimilarityMetric.calculate()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.KernelDistance"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.KernelDistance</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.KernelDistance.max_samples"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.KernelDistance.max_samples</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.KernelDistance.num_subsets"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.KernelDistance.num_subsets</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.KernelDistance.max_subset_size"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.KernelDistance.max_subset_size</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.metrics.KernelDistance.calculate"><code class="docutils literal notranslate"><span class="pre">synthval.metrics.KernelDistance.calculate()</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -445,7 +499,7 @@ distribution P and Q.</p>
   <div class="sidebar-secondary-item">
 
   <div class="tocsection sourcelink">
-    <a href="../../../_sources/autoapi/synthval/metrics/SimilarityMetric.rst.txt">
+    <a href="../../../_sources/autoapi/synthval/metrics/KernelDistance.rst.txt">
       <i class="fa-solid fa-file-lines"></i> Show Source
     </a>
   </div>

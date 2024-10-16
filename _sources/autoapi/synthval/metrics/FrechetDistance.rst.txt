@@ -1,0 +1,43 @@
+synthval.metrics.FrechetDistance
+================================
+
+.. py:class:: synthval.metrics.FrechetDistance(eps = 1e-06)
+
+   Bases: :py:obj:`SimilarityMetric`
+
+
+   Similarity Metric that computes the Frechet distance (also known as Fréchet Inception Distance) between two
+   distributions by comparing their means and covariances.
+
+   When applied to features extracted from the last average pooling layer of the Inception model (e.g., those provided
+   by synthval.features_extraction.InceptionExtractor), it corresponds to the standard Frechet Inception Distance.
+
+
+   .. attribute:: eps
+
+      Small offset added to the covariance matrices to handle numerical issues such as matrix singularity
+      (default: 1e-6).
+
+      :type: float, Optional
+
+   .. rubric:: References
+
+   Martin Heusel, Hubert Ramsauer, Thomas Unterthiner, Bernhard Nessler, Sepp Hochreiter - GANs Trained by a Two
+   Time-Scale Update Rule Converge to a Local Nash Equilibrium - Annual Conference on Neural Information
+   Processing Systems, 2016.
+
+
+   .. py:method:: calculate(dist_p_df, dist_q_df)
+
+      Compute the Frechet distance between two distributions by comparing the mean and covariance of the samples
+      provided.
+
+      :param dist_p_df: Set of samples representing distribution P.
+      :type dist_p_df: pandas.DataFrame
+      :param dist_q_df: Set of samples representing distribution Q.
+      :type dist_q_df: pandas.DataFrame
+
+      :returns: * **out** (*float*)
+                * *The Frechet Distance.*
+
+
