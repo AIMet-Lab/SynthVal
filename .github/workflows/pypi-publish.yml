@@ -30,6 +30,11 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install build
+    - name: Clean builds
+      run: |
+        rm -rf dist/
+        rm -rf build/
+        rm -rf *.egg-info
     - name: Build package
       run: python -m build
     - name: Publish package
