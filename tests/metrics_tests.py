@@ -79,6 +79,27 @@ def test_inception_score():
     metric.calculate(probabilities_df)
 
 
+def test_frechet_distance():
+    ori_features_df = pandas.read_csv("test_data/test_ori_features.csv", header=None)
+    gen_features_df = pandas.read_csv("test_data/test_gen_features.csv", header=None)
+    metric = synthval.metrics.FrechetDistance()
+    metric.calculate(ori_features_df, gen_features_df)
+
+
+def test_kernel_distance():
+    ori_features_df = pandas.read_csv("test_data/test_ori_features.csv", header=None)
+    gen_features_df = pandas.read_csv("test_data/test_gen_features.csv", header=None)
+    metric = synthval.metrics.KernelDistance()
+    metric.calculate(ori_features_df, gen_features_df)
+
+
+def test_pr_scores():
+    ori_features_df = pandas.read_csv("test_data/test_ori_features.csv", header=None)
+    gen_features_df = pandas.read_csv("test_data/test_gen_features.csv", header=None)
+    metric = synthval.metrics.PRScores(row_batch_size=10, col_batch_size=10)
+    metric.calculate(ori_features_df, gen_features_df)
+
+
 if __name__ == '__main__':
     test_kl_divergence()
     test_wasserstein_distance()
@@ -86,3 +107,6 @@ if __name__ == '__main__':
     test_mahalanobis_distance()
     test_fcnn_accuracy()
     test_inception_score()
+    test_frechet_distance()
+    test_kernel_distance()
+    test_pr_scores()
