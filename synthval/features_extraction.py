@@ -26,7 +26,7 @@ import os
 
 import PIL.Image
 import pandas
-import synthval
+import synthval.utilities
 
 import numpy
 import torch
@@ -186,7 +186,7 @@ class RadDinoFeatureExtractor(FeatureExtractor):
             device = torch.device("cpu")
 
         # Passing inputs and models to the selected device
-        inputs.to(device)
+        inputs = inputs.to(device)
         model.to(device)
 
         with torch.inference_mode():
@@ -204,6 +204,10 @@ class DinoV2FeatureExtractor(FeatureExtractor):
     """
     Feature extractor using models from the HuggingFace DinoV2 family
     (https://huggingface.co/collections/facebook/dinov2-6526c98554b3d2576e071ce3).
+
+    Note: As of December 16, 2024, Dino models utilize the operator `aten::upsample_bicubic2d.out`,
+    which is not currently supported on the MPS backend. To use these models as feature extractors
+    on MPS, users must set the environment variable `PYTORCH_ENABLE_MPS_FALLBACK` to `1`.
 
     Attributes
     ----------
@@ -247,7 +251,7 @@ class DinoV2FeatureExtractor(FeatureExtractor):
             device = torch.device("cpu")
 
         # Passing inputs and models to the selected device
-        inputs.to(device)
+        inputs = inputs.to(device)
         model.to(device)
 
         with torch.inference_mode():
@@ -258,7 +262,12 @@ class DinoV2FeatureExtractor(FeatureExtractor):
 
 class MambaFeatureExtractor(FeatureExtractor):
     """
-    Feature extractor using models from the HuggingFace MambaVision family.
+    Feature extractor using models from the HuggingFace MambaVision family
+    (https://huggingface.co/collections/nvidia/mambavision-66943871a6b36c9e78b327d3).
+
+    Note: MambaVision models require a CUDA-enabled environment and the installation of specific packages.
+    To use these models as feature extractors, users must have CUDA installed and install the necessary
+    packages by running `pip install mambavision`.
 
     Attributes
     ----------
@@ -378,7 +387,7 @@ class InceptionExtractor(FeatureExtractor):
             device = torch.device("cpu")
 
         # Passing inputs and models to the selected device
-        inputs.to(device)
+        inputs = inputs.to(device)
         model.to(device)
 
         with torch.no_grad():
