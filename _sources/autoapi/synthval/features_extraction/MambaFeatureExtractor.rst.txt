@@ -6,7 +6,12 @@ synthval.features_extraction.MambaFeatureExtractor
    Bases: :py:obj:`FeatureExtractor`
 
 
-   Feature extractor using models from the HuggingFace MambaVision family.
+   Feature extractor using models from the HuggingFace MambaVision family
+   (https://huggingface.co/collections/nvidia/mambavision-66943871a6b36c9e78b327d3).
+
+   Note: MambaVision models require a CUDA-enabled environment and the installation of specific packages.
+   To use these models as feature extractors, users must have CUDA installed and install the necessary
+   packages by running `pip install mambavision`.
 
    .. attribute:: model_id
 

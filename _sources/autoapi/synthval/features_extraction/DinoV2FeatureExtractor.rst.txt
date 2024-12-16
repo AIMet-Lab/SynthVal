@@ -9,6 +9,10 @@ synthval.features_extraction.DinoV2FeatureExtractor
    Feature extractor using models from the HuggingFace DinoV2 family
    (https://huggingface.co/collections/facebook/dinov2-6526c98554b3d2576e071ce3).
 
+   Note: As of December 16, 2024, Dino models utilize the operator `aten::upsample_bicubic2d.out`,
+   which is not currently supported on the MPS backend. To use these models as feature extractors
+   on MPS, users must set the environment variable `PYTORCH_ENABLE_MPS_FALLBACK` to `1`.
+
    .. attribute:: model_id
 
       HuggingFace model ID for the selected DinoV2 model.
