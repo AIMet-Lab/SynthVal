@@ -25,7 +25,7 @@ synthval.metrics.PRScores
    .. attribute:: num_nearest_n
 
       Number of nearest neighbors used to estimate the manifold. The manifold is used for computing precision
-      and recall (default: 3).
+      and recall (default: 2).
 
       :type: int, optional
 
