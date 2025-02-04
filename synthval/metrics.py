@@ -669,7 +669,7 @@ class PRScores(SimilarityMetric):
         Size of the column batches used for computing pairwise distances (default: 50000).
     num_nearest_n: int, optional
         Number of nearest neighbors used to estimate the manifold. The manifold is used for computing precision
-        and recall (default: 3).
+        and recall (default: 2).
 
     References
     ----------
@@ -722,8 +722,12 @@ class PRScores(SimilarityMetric):
                                        ('recall', dist_q, dist_p)]:
             kth = []  # To store the k-th nearest distances for manifold points
 
+            # Compute the slices for numpy.split, as the manifold could be not divisible for row_batch_size.
+            manifold_full_slices = manifold.shape[0] // self.row_batch_size
+            manifold_split_indexes = [x * self.row_batch_size for x in range(1, manifold_full_slices + 1)]
+
             # Process manifold in batches to control memory usage
-            for manifold_batch in numpy.split(manifold, self.row_batch_size):
+            for manifold_batch in numpy.split(manifold, manifold_split_indexes):
                 # Compute pairwise distances between batches, using available GPU/CPU/MPS
                 dist = self.__compute_distances(
                     row_features=torch.tensor(manifold_batch, dtype=torch.float32).to(self.device),
@@ -745,8 +749,12 @@ class PRScores(SimilarityMetric):
             # k-th nearest distance
             pred = []
 
+            # Compute the slices for numpy.split, as the probes could be not divisible for row_batch_size.
+            probes_full_slices = probes.shape[0] // self.row_batch_size
+            probes_split_indexes = [x * self.row_batch_size for x in range(1, probes_full_slices + 1)]
+
             # Process probe data in batches as well
-            for probes_batch in numpy.split(probes, self.row_batch_size):
+            for probes_batch in numpy.split(probes, probes_split_indexes):
                 dist = self.__compute_distances(
                     row_features=torch.tensor(probes_batch, dtype=torch.float32).to(self.device),
                     col_features=torch.tensor(manifold, dtype=torch.float32).to(self.device),
