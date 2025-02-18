@@ -104,6 +104,24 @@ class KLDivergenceEstimation(SimilarityMetric):
         self.drop_duplicates = drop_duplicates
         SimilarityMetric.__init__(self)
 
+    @staticmethod
+    def __drop_common_duplicates(dist_p_df, dist_q_df):
+        dist_p_df = dist_p_df.reset_index(drop=True)
+        dist_q_df = dist_q_df.reset_index(drop=True)
+        dist_q_df.index += dist_p_df.__len__()
+
+        # Concatenate both DataFrames
+        combined_df = pandas.concat([dist_p_df, dist_q_df])
+
+        # Drop all duplicate rows (including common ones)
+        unique_df = combined_df.drop_duplicates(keep='first')
+
+        # Separate back into two DataFrames
+        dist_p_unique = unique_df[unique_df.index.isin(dist_p_df.index)].reset_index(drop=True)
+        dist_q_unique = unique_df[unique_df.index.isin(dist_q_df.index)].reset_index(drop=True)
+
+        return dist_p_unique, dist_q_unique
+
     def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
         """
         Compute an estimation of the Kullback-Leibler divergence between two set of samples originating from two
@@ -123,8 +141,7 @@ class KLDivergenceEstimation(SimilarityMetric):
         """
 
         if self.drop_duplicates:
-            dist_p_df.drop_duplicates()
-            dist_q_df.drop_duplicates()
+            dist_p_df, dist_q_df = KLDivergenceEstimation.__drop_common_duplicates(dist_p_df, dist_q_df)
 
         dist_p = dist_p_df.values
         dist_q = dist_q_df.values
