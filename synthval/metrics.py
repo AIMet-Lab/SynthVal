@@ -85,7 +85,13 @@ class SimilarityMetric(abc.ABC):
 class KLDivergenceEstimation(SimilarityMetric):
     """
     Similarity Metric computing an estimation of the Kullback-Leibler divergence based on the methodology proposed in
-    the referenced paper.
+    the referenced paper. It should be noted that the algorithm used may cause a division-by-zero error if duplicates
+    are present in the distributions considered.
+
+    Attributes
+    ----------
+    drop_duplicates: bool, Optional
+        Flag controlling if the duplicates in the distribution can be dropped automatically (default: True).
 
     References
     ----------
@@ -94,7 +100,8 @@ class KLDivergenceEstimation(SimilarityMetric):
 
     """
 
-    def __init__(self):
+    def __init__(self, drop_duplicates: bool = True):
+        self.drop_duplicates = drop_duplicates
         SimilarityMetric.__init__(self)
 
     def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
@@ -114,6 +121,10 @@ class KLDivergenceEstimation(SimilarityMetric):
         float
             The estimated value of the Kullback-Leibler divergence.
         """
+
+        if self.drop_duplicates:
+            dist_p_df.drop_duplicates()
+            dist_q_df.drop_duplicates()
 
         dist_p = dist_p_df.values
         dist_q = dist_q_df.values

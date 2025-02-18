@@ -5,7 +5,7 @@ with open("README.rst", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="SynthVal",
-    version="0.1.5-alpha",
+    version="0.1.6-alpha",
     author="Dario Guidotti, Laura Pandolfo, Luca Pulina",
     author_email="dguidotti@uniss.it, lpandolfo@uniss.it, lpulina@uniss.it",
     license='GNU General Public License with Commons Clause License Condition v1.0',
