@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -30,8 +30,8 @@
   <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -39,9 +39,9 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f9200032"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/documentation_options.js?v=db5ad67a"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/metrics/PRScores';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -334,25 +334,25 @@
                 <article class="bd-article">
                   
   <section id="synthval-metrics-prscores">
-<h1>synthval.metrics.PRScores<a class="headerlink" href="#synthval-metrics-prscores" title="Permalink to this heading">#</a></h1>
+<h1>synthval.metrics.PRScores<a class="headerlink" href="#synthval-metrics-prscores" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="synthval.metrics.PRScores">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">PRScores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nearest_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">PRScores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nearest_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityMetric</span></code></p>
 <p>A Similarity Metric class that computes the Precision and Recall scores between two distributions
 (dist_p and dist_q).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>row_batch_size</strong> (<em>int</em>) – </p></li>
-<li><p><strong>col_batch_size</strong> (<em>int</em>) – </p></li>
-<li><p><strong>num_nearest_n</strong> (<em>int</em>) – </p></li>
+<li><p><strong>row_batch_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>col_batch_size</strong> (<em>int</em>)</p></li>
+<li><p><strong>num_nearest_n</strong> (<em>int</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="synthval.metrics.PRScores.row_batch_size">
-<span class="sig-name descname"><span class="pre">row_batch_size</span></span><a class="headerlink" href="#synthval.metrics.PRScores.row_batch_size" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">row_batch_size</span></span><a class="headerlink" href="#synthval.metrics.PRScores.row_batch_size" title="Link to this definition">#</a></dt>
 <dd><p>Size of the row batches used when computing pairwise distances. This provides a trade-off between memory
 usage and performance (default: 25000).</p>
 <dl class="field-list simple">
@@ -364,7 +364,7 @@ usage and performance (default: 25000).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="synthval.metrics.PRScores.col_batch_size">
-<span class="sig-name descname"><span class="pre">col_batch_size</span></span><a class="headerlink" href="#synthval.metrics.PRScores.col_batch_size" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">col_batch_size</span></span><a class="headerlink" href="#synthval.metrics.PRScores.col_batch_size" title="Link to this definition">#</a></dt>
 <dd><p>Size of the column batches used for computing pairwise distances (default: 50000).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -375,7 +375,7 @@ usage and performance (default: 25000).</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="synthval.metrics.PRScores.num_nearest_n">
-<span class="sig-name descname"><span class="pre">num_nearest_n</span></span><a class="headerlink" href="#synthval.metrics.PRScores.num_nearest_n" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">num_nearest_n</span></span><a class="headerlink" href="#synthval.metrics.PRScores.num_nearest_n" title="Link to this definition">#</a></dt>
 <dd><p>Number of nearest neighbors used to estimate the manifold. The manifold is used for computing precision
 and recall (default: 2).</p>
 <dl class="field-list simple">
@@ -390,7 +390,7 @@ and recall (default: 2).</p>
 Metric for Assessing Generative Models - Annual Conference on Neural Information Processing Systems, 2019.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="synthval.metrics.PRScores.calculate">
-<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores.calculate" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores.calculate" title="Link to this definition">#</a></dt>
 <dd><p>Compute Precision and Recall metrics between two distributions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -414,7 +414,7 @@ Metric for Assessing Generative Models - Annual Conference on Neural Information
 
 <dl class="py method">
 <dt class="sig sig-object py" id="synthval.metrics.PRScores.__compute_distances">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__compute_distances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores.__compute_distances" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">__compute_distances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_features</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_batch_size</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores.__compute_distances" title="Link to this definition">#</a></dt>
 <dd><p>Compute pairwise distances between row and column features using batches to optimize memory usage.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -538,7 +538,7 @@ Metric for Assessing Generative Models - Annual Conference on Neural Information
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>

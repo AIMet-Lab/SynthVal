@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 
 
-<html lang="en" data-content_root="" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -30,8 +30,8 @@
   <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 <link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=eafc0fe6" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
   
   <!-- So that users can add custom icons -->
   <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
@@ -39,9 +39,9 @@
   <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
 <link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js?v=f9200032"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
-    <script src="../../../_static/sphinx_highlight.js?v=4825356b"></script>
+    <script src="../../../_static/documentation_options.js?v=db5ad67a"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'autoapi/synthval/features_extraction/InceptionExtractor';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -334,23 +334,23 @@
                 <article class="bd-article">
                   
   <section id="synthval-features-extraction-inceptionextractor">
-<h1>synthval.features_extraction.InceptionExtractor<a class="headerlink" href="#synthval-features-extraction-inceptionextractor" title="Permalink to this heading">#</a></h1>
+<h1>synthval.features_extraction.InceptionExtractor<a class="headerlink" href="#synthval-features-extraction-inceptionextractor" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.features_extraction.</span></span><span class="sig-name descname"><span class="pre">InceptionExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_probabilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor" title="Permalink to this definition">#</a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.features_extraction.</span></span><span class="sig-name descname"><span class="pre">InceptionExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_probabilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">FeatureExtractor</span></code></p>
 <p>Feature extractor using traditional Inception models from the timm library (<a class="reference external" href="https://huggingface.co/docs/timm/index">https://huggingface.co/docs/timm/index</a>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>model_id</strong> (<em>str</em>) – </p></li>
-<li><p><strong>get_probabilities</strong> (<em>bool</em>) – </p></li>
+<li><p><strong>model_id</strong> (<em>str</em>)</p></li>
+<li><p><strong>get_probabilities</strong> (<em>bool</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.model_id">
-<span class="sig-name descname"><span class="pre">model_id</span></span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.model_id" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">model_id</span></span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.model_id" title="Link to this definition">#</a></dt>
 <dd><p>Timm model ID for the selected Inception model (should be one among inception_v3 and inception_v4).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -361,7 +361,7 @@
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.get_probabilities">
-<span class="sig-name descname"><span class="pre">get_probabilities</span></span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.get_probabilities" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">get_probabilities</span></span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.get_probabilities" title="Link to this definition">#</a></dt>
 <dd><p>Flag controlling if the extractor should provide the model prediction over the
 ImageNet (<a class="reference external" href="https://www.image-net.org">https://www.image-net.org</a>) classes. We provide this capability for the computation of the
 Inception Score (default: False).</p>
@@ -374,7 +374,7 @@ Inception Score (default: False).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.feature_extraction">
-<span class="sig-name descname"><span class="pre">feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.feature_extraction" title="Permalink to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.feature_extraction" title="Link to this definition">#</a></dt>
 <dd><p>Extract features (or probabilities if get_probabilities is set) from a PIL image using the selected
 Timm Inception model.</p>
 <dl class="field-list simple">
@@ -493,7 +493,7 @@ Timm Inception model.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.1.2.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
     <br/>
   </p>
 </div>

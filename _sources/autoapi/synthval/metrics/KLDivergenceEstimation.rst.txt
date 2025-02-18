@@ -1,13 +1,20 @@
 synthval.metrics.KLDivergenceEstimation
 =======================================
 
-.. py:class:: synthval.metrics.KLDivergenceEstimation
+.. py:class:: synthval.metrics.KLDivergenceEstimation(drop_duplicates = True)
 
    Bases: :py:obj:`SimilarityMetric`
 
 
    Similarity Metric computing an estimation of the Kullback-Leibler divergence based on the methodology proposed in
-   the referenced paper.
+   the referenced paper. It should be noted that the algorithm used may cause a division-by-zero error if duplicates
+   are present in the distributions considered.
+
+   .. attribute:: drop_duplicates
+
+      Flag controlling if the duplicates in the distribution can be dropped automatically (default: True).
+
+      :type: bool, Optional
 
    .. rubric:: References
 
