@@ -36,7 +36,7 @@ synthval.metrics.InceptionScore
                                typically obtained from a pre-trained Inception model.
       :type probabilities_df: pandas.DataFrame
 
-      :returns: * **score_mean** (*float*) -- The mean of the computed Inception Scores across the splits.
-                * **score_std** (*float*) -- The standard deviation of the Inception Scores across the splits.
+      :returns: A numpy array containing the mean and the standard deviation of the computed Inception Scores across the splits.
+      :rtype: numpy.ndarray
 
 

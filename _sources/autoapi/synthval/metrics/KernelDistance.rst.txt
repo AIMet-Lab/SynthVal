@@ -37,17 +37,17 @@ synthval.metrics.KernelDistance
    Conference on Learning Representations, 2018.
 
 
-   .. py:method:: calculate(dist_p_df, dist_q_df)
+   .. py:method:: calculate(real_dist_df, synth_dist_df)
 
       Compute the Kernel distance between two distributions using the samples
       provided.
 
-      :param dist_p_df: Set of samples representing distribution P.
-      :type dist_p_df: pandas.DataFrame
-      :param dist_q_df: Set of samples representing distribution Q.
-      :type dist_q_df: pandas.DataFrame
+      :param real_dist_df: Set of samples representing distribution real_dist.
+      :type real_dist_df: pandas.DataFrame
+      :param synth_dist_df: Set of samples representing distribution synth_dist.
+      :type synth_dist_df: pandas.DataFrame
 
-      :returns: * **out** (*float*)
-                * *The Kernel Distance.*
+      :returns: A numpy array containing the Kernel Distance.
+      :rtype: numpy.ndarray
 
 

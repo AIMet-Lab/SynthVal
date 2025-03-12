@@ -336,8 +336,9 @@
 <p>This module defines abstract and concrete classes for computing similarity metrics between samples from two
 distributions. The available metrics include Kullback-Leibler divergence, Wasserstein distance, Energy distance,
 Mean Mahalanobis distance, Frechet Distance, Inception Score, Kernel Distances and others.
-It should be noted that dist_p usually represent the reference distribution, whereas dist_q represent the distribution
-we wish to evaluate.</p>
+Given the scope of the package, we identify the first distribution as real_dist and the second as synth_dist indicating
+the distribution of the real data and the distribution of the synthetic data respectively.
+It should be noted that the methods of the package can be generally applied to any kind of multivariate distributions.</p>
 <section id="classes">
 <h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
 <dl class="simple">

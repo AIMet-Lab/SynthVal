@@ -7,7 +7,7 @@ synthval.metrics.FCNNAccuracyMetric
 
 
    Similarity Metric computing the Accuracy of a fully-connected neural networks trained to distinguish between the
-   points belonging to the distributions P and Q.
+   points belonging to the distributions real_dist and synth_dist.
 
    .. attribute:: test_percentage
 
@@ -44,17 +44,17 @@ synthval.metrics.FCNNAccuracyMetric
       :type: dict, Optional
 
 
-   .. py:method:: calculate(dist_p_df, dist_q_df)
+   .. py:method:: calculate(real_dist_df, synth_dist_df)
 
       Compute the Accuracy of a fully-connected neural networks trained to distinguish between the
-      points belonging to the distributions P and Q.
+      points belonging to the distributions real_dist and synth_dist.
 
-      :param dist_p_df: Set of samples representing distribution P.
-      :type dist_p_df: pandas.DataFrame
-      :param dist_q_df: Set of samples representing distribution Q.
-      :type dist_q_df: pandas.DataFrame
+      :param real_dist_df: Set of samples representing distribution real_dist.
+      :type real_dist_df: pandas.DataFrame
+      :param synth_dist_df: Set of samples representing distribution synth_dist.
+      :type synth_dist_df: pandas.DataFrame
 
-      :returns: * **out** (*float*)
-                * *The final accuracy computed on the test set.*
+      :returns: A numpy array containing the final accuracy computed on the test set.
+      :rtype: numpy.ndarray
 
 

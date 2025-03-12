@@ -340,7 +340,7 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">FCNNAccuracyMetric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">test_percentage</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng_seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">network_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">synthval.configs.DEFAULT_NETWORK_PARAMS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">synthval.configs.DEFAULT_TRAINING_PARAMS</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testing_params</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">synthval.configs.DEFAULT_TESTING_PARAMS</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.FCNNAccuracyMetric" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityMetric</span></code></p>
 <p>Similarity Metric computing the Accuracy of a fully-connected neural networks trained to distinguish between the
-points belonging to the distributions P and Q.</p>
+points belonging to the distributions real_dist and synth_dist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -413,25 +413,21 @@ an example (default: configs.DEFAULT_TESTING_PARAMS).</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="synthval.metrics.FCNNAccuracyMetric.calculate">
-<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.FCNNAccuracyMetric.calculate" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">real_dist_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synth_dist_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.FCNNAccuracyMetric.calculate" title="Link to this definition">#</a></dt>
 <dd><p>Compute the Accuracy of a fully-connected neural networks trained to distinguish between the
-points belonging to the distributions P and Q.</p>
+points belonging to the distributions real_dist and synth_dist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dist_p_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution P.</p></li>
-<li><p><strong>dist_q_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution Q.</p></li>
+<li><p><strong>real_dist_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution real_dist.</p></li>
+<li><p><strong>synth_dist_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution synth_dist.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>out</strong> (<em>float</em>)</p></li>
-<li><p><em>The final accuracy computed on the test set.</em></p></li>
-</ul>
-</p>
+<dd class="field-even"><p>A numpy array containing the final accuracy computed on the test set.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>

@@ -10,17 +10,17 @@ synthval.metrics.WassersteinDistance
 
 
 
-   .. py:method:: calculate(dist_p_df, dist_q_df)
+   .. py:method:: calculate(real_dist_df, synth_dist_df)
 
       Compute the Wasserstein Distance between two set of samples originating from two
-      multivariate distribution P and Q.
+      multivariate distribution real_dist and synth_dist.
 
-      :param dist_p_df: Set of samples representing distribution P.
-      :type dist_p_df: pandas.DataFrame
-      :param dist_q_df: Set of samples representing distribution Q.
-      :type dist_q_df: pandas.DataFrame
+      :param real_dist_df: Set of samples representing distribution real_dist.
+      :type real_dist_df: pandas.DataFrame
+      :param synth_dist_df: Set of samples representing distribution synth_dist.
+      :type synth_dist_df: pandas.DataFrame
 
-      :returns: The value of the Wasserstein Distance.
-      :rtype: float
+      :returns: A numpy array containing the value of the Wasserstein Distance.
+      :rtype: numpy.ndarray
 
 

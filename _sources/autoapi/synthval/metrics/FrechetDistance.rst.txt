@@ -27,17 +27,17 @@ synthval.metrics.FrechetDistance
    Processing Systems, 2016.
 
 
-   .. py:method:: calculate(dist_p_df, dist_q_df)
+   .. py:method:: calculate(real_dist_df, synth_dist_df)
 
       Compute the Frechet distance between two distributions by comparing the mean and covariance of the samples
       provided.
 
-      :param dist_p_df: Set of samples representing distribution P.
-      :type dist_p_df: pandas.DataFrame
-      :param dist_q_df: Set of samples representing distribution Q.
-      :type dist_q_df: pandas.DataFrame
+      :param real_dist_df: Set of samples representing distribution real_dist.
+      :type real_dist_df: pandas.DataFrame
+      :param synth_dist_df: Set of samples representing distribution synth_dist.
+      :type synth_dist_df: pandas.DataFrame
 
-      :returns: * **out** (*float*)
-                * *The Frechet Distance.*
+      :returns: A numpy array containing the Frechet Distance.
+      :rtype: numpy.ndarray
 
 

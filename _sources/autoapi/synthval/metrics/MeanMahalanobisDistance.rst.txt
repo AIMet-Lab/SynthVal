@@ -7,22 +7,22 @@ synthval.metrics.MeanMahalanobisDistance
 
 
    Similarity Metric computing the mean of the estimated Mahalanobis Distances between all the samples
-   of the P distribution and the Q distribution (the estimation is due to the use of the numpy.cov method
-   to compute the covariance matrix of the Q distribution).
+   of the real_dist distribution and the synth_dist distribution (the estimation is due to the use of the numpy.cov
+   method to compute the covariance matrix of the synth_dist distribution).
 
 
 
-   .. py:method:: calculate(dist_p_df, dist_q_df)
+   .. py:method:: calculate(real_dist_df, synth_dist_df)
 
       Compute an estimation of the Mahalanobis Distance between two distributions as a mean of
       the Mahalanobis Distance computed over each sample of the first against the second.
 
-      :param dist_p_df: Set of samples representing distribution P.
-      :type dist_p_df: pandas.DataFrame
-      :param dist_q_df: Set of samples representing distribution Q.
-      :type dist_q_df: pandas.DataFrame
+      :param real_dist_df: Set of samples representing distribution real_dist.
+      :type real_dist_df: pandas.DataFrame
+      :param synth_dist_df: Set of samples representing distribution synth_dist.
+      :type synth_dist_df: pandas.DataFrame
 
-      :returns: * **out** (*float*)
-                * *The estimated mean Mahalanobis Distance.*
+      :returns: A numpy array containing the estimated mean Mahalanobis Distance.
+      :rtype: numpy.ndarray
 
 

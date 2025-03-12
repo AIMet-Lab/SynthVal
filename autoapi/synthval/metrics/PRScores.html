@@ -340,7 +340,7 @@
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.metrics.</span></span><span class="sig-name descname"><span class="pre">PRScores</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">25000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">col_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">50000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_nearest_n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">3</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">SimilarityMetric</span></code></p>
 <p>A Similarity Metric class that computes the Precision and Recall scores between two distributions
-(dist_p and dist_q).</p>
+(real_dist and synth_dist).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -390,24 +390,20 @@ and recall (default: 2).</p>
 Metric for Assessing Generative Models - Annual Conference on Neural Information Processing Systems, 2019.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="synthval.metrics.PRScores.calculate">
-<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores.calculate" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">real_dist_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synth_dist_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.PRScores.calculate" title="Link to this definition">#</a></dt>
 <dd><p>Compute Precision and Recall metrics between two distributions.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dist_p_df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing samples from distribution P.</p></li>
-<li><p><strong>dist_q_df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing samples from distribution Q.</p></li>
+<li><p><strong>real_dist_df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing samples from distribution real_dist.</p></li>
+<li><p><strong>synth_dist_df</strong> (<em>pandas.DataFrame</em>) – DataFrame containing samples from distribution synth_dist.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>precision</strong> (<em>float</em>) – Precision metric between distribution P and Q.</p></li>
-<li><p><strong>recall</strong> (<em>float</em>) – Recall metric between distribution P and Q.</p></li>
-</ul>
-</p>
+<dd class="field-even"><p>A numpy array containing the Precision and the Recall metrics between distribution real_dist and synth_dist.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>(float, float)</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>

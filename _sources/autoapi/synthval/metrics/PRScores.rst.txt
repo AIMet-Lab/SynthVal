@@ -7,7 +7,7 @@ synthval.metrics.PRScores
 
 
    A Similarity Metric class that computes the Precision and Recall scores between two distributions
-   (dist_p and dist_q).
+   (real_dist and synth_dist).
 
    .. attribute:: row_batch_size
 
@@ -35,17 +35,17 @@ synthval.metrics.PRScores
    Metric for Assessing Generative Models - Annual Conference on Neural Information Processing Systems, 2019.
 
 
-   .. py:method:: calculate(dist_p_df, dist_q_df)
+   .. py:method:: calculate(real_dist_df, synth_dist_df)
 
       Compute Precision and Recall metrics between two distributions.
 
-      :param dist_p_df: DataFrame containing samples from distribution P.
-      :type dist_p_df: pandas.DataFrame
-      :param dist_q_df: DataFrame containing samples from distribution Q.
-      :type dist_q_df: pandas.DataFrame
+      :param real_dist_df: DataFrame containing samples from distribution real_dist.
+      :type real_dist_df: pandas.DataFrame
+      :param synth_dist_df: DataFrame containing samples from distribution synth_dist.
+      :type synth_dist_df: pandas.DataFrame
 
-      :returns: * **precision** (*float*) -- Precision metric between distribution P and Q.
-                * **recall** (*float*) -- Recall metric between distribution P and Q.
+      :returns: A numpy array containing the Precision and the Recall metrics between distribution real_dist and synth_dist.
+      :rtype: numpy.ndarray
 
 
 

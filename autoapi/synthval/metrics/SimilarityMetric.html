@@ -344,21 +344,21 @@ two multivariate distributions.
 Child classes must implement the concrete <cite>calculate</cite> method for computing the specific metric.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="synthval.metrics.SimilarityMetric.calculate">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dist_p_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dist_q_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.SimilarityMetric.calculate" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">calculate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">real_dist_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">synth_dist_df</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.metrics.SimilarityMetric.calculate" title="Link to this definition">#</a></dt>
 <dd><p>Abstract method to compute a metric of similarity between two set of samples originating from two multivariate
-distribution P and Q.</p>
+distribution real_dist and synth_dist.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dist_p_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution P.</p></li>
-<li><p><strong>dist_q_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution Q.</p></li>
+<li><p><strong>real_dist_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution real_dist.</p></li>
+<li><p><strong>synth_dist_df</strong> (<em>pandas.DataFrame</em>) – Set of samples representing distribution synth_dist.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The value of the metric.</p>
+<dd class="field-even"><p>A numpy array containing the value (or values) of the metric.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
 </dd></dl>
