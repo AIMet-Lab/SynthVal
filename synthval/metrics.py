@@ -4,8 +4,9 @@ Module for computing various similarity metrics between two sets of samples orig
 This module defines abstract and concrete classes for computing similarity metrics between samples from two
 distributions. The available metrics include Kullback-Leibler divergence, Wasserstein distance, Energy distance,
 Mean Mahalanobis distance, Frechet Distance, Inception Score, Kernel Distances and others.
-It should be noted that dist_p usually represent the reference distribution, whereas dist_q represent the distribution
-we wish to evaluate.
+Given the scope of the package, we identify the first distribution as real_dist and the second as synth_dist indicating
+the distribution of the real data and the distribution of the synthetic data respectively.
+It should be noted that the methods of the package can be generally applied to any kind of multivariate distributions.
 
 Classes
 -------
@@ -49,7 +50,6 @@ import pynever.nodes
 import sklearn.utils
 import torch
 import synthval.configs
-import typing
 
 
 class SimilarityMetric(abc.ABC):
@@ -61,22 +61,22 @@ class SimilarityMetric(abc.ABC):
     """
 
     @abc.abstractmethod
-    def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
+    def calculate(self, real_dist_df: pandas.DataFrame, synth_dist_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Abstract method to compute a metric of similarity between two set of samples originating from two multivariate
-        distribution P and Q.
+        distribution real_dist and synth_dist.
 
         Parameters
         ----------
-        dist_p_df : pandas.DataFrame
-            Set of samples representing distribution P.
-        dist_q_df : pandas.DataFrame
-            Set of samples representing distribution Q.
+        real_dist_df : pandas.DataFrame
+            Set of samples representing distribution real_dist.
+        synth_dist_df : pandas.DataFrame
+            Set of samples representing distribution synth_dist.
 
         Returns
         -------
-        float
-            The value of the metric.
+        numpy.ndarray
+            A numpy array containing the value (or values) of the metric.
         """
 
         raise NotImplementedError
@@ -105,66 +105,66 @@ class KLDivergenceEstimation(SimilarityMetric):
         SimilarityMetric.__init__(self)
 
     @staticmethod
-    def __drop_common_duplicates(dist_p_df, dist_q_df):
-        dist_p_df = dist_p_df.reset_index(drop=True)
-        dist_q_df = dist_q_df.reset_index(drop=True)
-        dist_q_df.index += dist_p_df.__len__()
+    def __drop_common_duplicates(real_dist_df, synth_dist_df):
+        real_dist_df = real_dist_df.reset_index(drop=True)
+        synth_dist_df = synth_dist_df.reset_index(drop=True)
+        synth_dist_df.index += real_dist_df.__len__()
 
         # Concatenate both DataFrames
-        combined_df = pandas.concat([dist_p_df, dist_q_df])
+        combined_df = pandas.concat([real_dist_df, synth_dist_df])
 
         # Drop all duplicate rows (including common ones)
         unique_df = combined_df.drop_duplicates(keep='first')
 
         # Separate back into two DataFrames
-        dist_p_unique = unique_df[unique_df.index.isin(dist_p_df.index)].reset_index(drop=True)
-        dist_q_unique = unique_df[unique_df.index.isin(dist_q_df.index)].reset_index(drop=True)
+        real_dist_unique = unique_df[unique_df.index.isin(real_dist_df.index)].reset_index(drop=True)
+        synth_dist_unique = unique_df[unique_df.index.isin(synth_dist_df.index)].reset_index(drop=True)
 
-        return dist_p_unique, dist_q_unique
+        return real_dist_unique, synth_dist_unique
 
-    def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
+    def calculate(self, real_dist_df: pandas.DataFrame, synth_dist_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Compute an estimation of the Kullback-Leibler divergence between two set of samples originating from two
-        multivariate distribution P and Q.
+        multivariate distribution real_dist and synth_dist.
 
         Parameters
         ----------
-        dist_p_df : pandas.DataFrame
-            Set of samples representing distribution P.
-        dist_q_df : pandas.DataFrame
-            Set of samples representing distribution Q.
+        real_dist_df : pandas.DataFrame
+            Set of samples representing distribution real_dist.
+        synth_dist_df : pandas.DataFrame
+            Set of samples representing distribution synth_dist.
 
         Returns
         -------
-        float
-            The estimated value of the Kullback-Leibler divergence.
+        numpy.ndarray
+            A numpy array containing the estimated value of the Kullback-Leibler divergence.
         """
 
         if self.drop_duplicates:
-            dist_p_df, dist_q_df = KLDivergenceEstimation.__drop_common_duplicates(dist_p_df, dist_q_df)
+            real_dist_df, synth_dist_df = KLDivergenceEstimation.__drop_common_duplicates(real_dist_df, synth_dist_df)
 
-        dist_p = dist_p_df.values
-        dist_q = dist_q_df.values
+        real_dist = real_dist_df.values
+        synth_dist = synth_dist_df.values
 
-        n, d = dist_p.shape
-        m, d_s = dist_q.shape
+        n, d = real_dist.shape
+        m, d_s = synth_dist.shape
 
         assert d == d_s
 
         # Build a KD tree representation of the samples and find the nearest neighbour
         # of each point in first_dist.
 
-        p_tree = sci_sp.cKDTree(dist_p)
-        q_tree = sci_sp.cKDTree(dist_q)
+        p_tree = sci_sp.cKDTree(real_dist)
+        q_tree = sci_sp.cKDTree(synth_dist)
 
         # Get the first two nearest neighbours for p_dist, since the closest one is the
         # sample itself.
-        r = p_tree.query(dist_p, k=2, eps=.01, p=2)[0][:, 1]
-        s = q_tree.query(dist_p, k=1, eps=.01, p=2)[0]
+        r = p_tree.query(real_dist, k=2, eps=.01, p=2)[0][:, 1]
+        s = q_tree.query(real_dist, k=1, eps=.01, p=2)[0]
 
         # There is a mistake in the paper. In Eq. 14, the right side misses a negative sign
         # on the first term of the right hand side.
-        return numpy.log(s / r).sum() * d / n + numpy.log(m / (n - 1.0))
+        return numpy.array(numpy.log(s / r).sum() * d / n + numpy.log(m / (n - 1.0)))
 
 
 class WassersteinDistance(SimilarityMetric):
@@ -176,27 +176,27 @@ class WassersteinDistance(SimilarityMetric):
     def __init__(self):
         SimilarityMetric.__init__(self)
 
-    def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
+    def calculate(self, real_dist_df: pandas.DataFrame, synth_dist_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Compute the Wasserstein Distance between two set of samples originating from two
-        multivariate distribution P and Q.
+        multivariate distribution real_dist and synth_dist.
 
         Parameters
         ----------
-        dist_p_df : pandas.DataFrame
-            Set of samples representing distribution P.
-        dist_q_df : pandas.DataFrame
-            Set of samples representing distribution Q.
+        real_dist_df : pandas.DataFrame
+            Set of samples representing distribution real_dist.
+        synth_dist_df : pandas.DataFrame
+            Set of samples representing distribution synth_dist.
 
         Returns
         -------
-        float
-            The value of the Wasserstein Distance.
+        numpy.ndarray
+            A numpy array containing the value of the Wasserstein Distance.
         """
 
-        dist_p = dist_p_df.values
-        dist_q = dist_q_df.values
-        return sci_stats.wasserstein_distance_nd(dist_p, dist_q)
+        real_dist = real_dist_df.values
+        synth_dist = synth_dist_df.values
+        return numpy.array(sci_stats.wasserstein_distance_nd(real_dist, synth_dist))
 
 
 class EnergyDistance(SimilarityMetric):
@@ -208,77 +208,77 @@ class EnergyDistance(SimilarityMetric):
     def __init__(self):
         SimilarityMetric.__init__(self)
 
-    def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
+    def calculate(self, real_dist_df: pandas.DataFrame, synth_dist_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Compute the Energy Distance between two set of samples originating from two
-        multivariate distribution P and Q.
+        multivariate distribution real_dist and synth_dist.
 
         Parameters
         ----------
-        dist_p_df : pandas.DataFrame
-            Set of samples representing distribution P.
-        dist_q_df : pandas.DataFrame
-            Set of samples representing distribution Q.
+        real_dist_df : pandas.DataFrame
+            Set of samples representing distribution real_dist.
+        synth_dist_df : pandas.DataFrame
+            Set of samples representing distribution synth_dist.
 
         Returns
         -------
-        float
-            The value of the Wasserstein Distance.
+        numpy.ndarray
+            A numpy array containing the value of the Wasserstein Distance.
         """
 
-        dist_p = dist_p_df.values
-        dist_q = dist_q_df.values
-        return dcor.energy_distance(dist_p, dist_q)
+        real_dist = real_dist_df.values
+        synth_dist = synth_dist_df.values
+        return numpy.array(dcor.energy_distance(real_dist, synth_dist))
 
 
 class MeanMahalanobisDistance(SimilarityMetric):
     """
     Similarity Metric computing the mean of the estimated Mahalanobis Distances between all the samples
-    of the P distribution and the Q distribution (the estimation is due to the use of the numpy.cov method
-    to compute the covariance matrix of the Q distribution).
+    of the real_dist distribution and the synth_dist distribution (the estimation is due to the use of the numpy.cov
+    method to compute the covariance matrix of the synth_dist distribution).
 
     """
 
     def __init__(self):
         SimilarityMetric.__init__(self)
 
-    def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
+    def calculate(self, real_dist_df: pandas.DataFrame, synth_dist_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Compute an estimation of the Mahalanobis Distance between two distributions as a mean of
         the Mahalanobis Distance computed over each sample of the first against the second.
 
         Parameters
         ----------
-        dist_p_df : pandas.DataFrame
-            Set of samples representing distribution P.
-        dist_q_df : pandas.DataFrame
-            Set of samples representing distribution Q.
+        real_dist_df : pandas.DataFrame
+            Set of samples representing distribution real_dist.
+        synth_dist_df : pandas.DataFrame
+            Set of samples representing distribution synth_dist.
 
         Returns
         -------
-        out : float
-        The estimated mean Mahalanobis Distance.
+        numpy.ndarray
+            A numpy array containing the estimated mean Mahalanobis Distance.
 
         """
 
-        dist_p = dist_p_df.values
-        dist_q = dist_q_df.values
+        real_dist = real_dist_df.values
+        synth_dist = synth_dist_df.values
 
-        covariance_matrix = numpy.cov(dist_q, rowvar=False)
-        mean_vector = numpy.mean(dist_q, axis=0)
+        covariance_matrix = numpy.cov(synth_dist, rowvar=False)
+        mean_vector = numpy.mean(synth_dist, axis=0)
 
         m_distances = []
-        for i in range(dist_p.shape[0]):
-            m_distances.append(sci_sp.distance.mahalanobis(dist_p[i, :], mean_vector, covariance_matrix))
+        for i in range(real_dist.shape[0]):
+            m_distances.append(sci_sp.distance.mahalanobis(real_dist[i, :], mean_vector, covariance_matrix))
 
         m_distances = numpy.array(m_distances)
-        return numpy.mean(m_distances)
+        return numpy.array(numpy.mean(m_distances))
 
 
 class FCNNAccuracyMetric(SimilarityMetric):
     """
     Similarity Metric computing the Accuracy of a fully-connected neural networks trained to distinguish between the
-    points belonging to the distributions P and Q.
+    points belonging to the distributions real_dist and synth_dist.
 
     Attributes
     ----------
@@ -390,26 +390,26 @@ class FCNNAccuracyMetric(SimilarityMetric):
         test_loss = tester.test(net, dataset)
         return test_loss
 
-    def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
+    def calculate(self, real_dist_df: pandas.DataFrame, synth_dist_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Compute the Accuracy of a fully-connected neural networks trained to distinguish between the
-        points belonging to the distributions P and Q.
+        points belonging to the distributions real_dist and synth_dist.
 
         Parameters
         ----------
-        dist_p_df : pandas.DataFrame
-            Set of samples representing distribution P.
-        dist_q_df : pandas.DataFrame
-            Set of samples representing distribution Q.
+        real_dist_df : pandas.DataFrame
+            Set of samples representing distribution real_dist.
+        synth_dist_df : pandas.DataFrame
+            Set of samples representing distribution synth_dist.
 
         Returns
         -------
-        out : float
-        The final accuracy computed on the test set.
+        numpy.ndarray
+            A numpy array containing the final accuracy computed on the test set.
 
         """
 
-        dataset = synthval.utilities.FeaturesDataset(dist_p_df, dist_q_df, self.test_percentage, self.rng_seed)
+        dataset = synthval.utilities.FeaturesDataset(real_dist_df, synth_dist_df, self.test_percentage, self.rng_seed)
         input_dim = dataset.__getitem__(0)[0].shape
         output_dim = (2,)
 
@@ -417,8 +417,8 @@ class FCNNAccuracyMetric(SimilarityMetric):
         trained_net = self.__train_metric_network(net, dataset)
 
         dataset.train_mode = False
-        final_accuracy = self.__test_metric_network(trained_net, dataset)
-        return final_accuracy
+        final_accuracy = 1 - self.__test_metric_network(trained_net, dataset)
+        return numpy.array(final_accuracy)
 
 
 class InceptionScore:
@@ -446,7 +446,7 @@ class InceptionScore:
     def __init__(self, num_splits: int = 10):
         self.num_splits = num_splits
 
-    def calculate(self, probabilities_df: pandas.DataFrame) -> (float, float):
+    def calculate(self, probabilities_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Compute the Inception Score over the provided probabilities.
 
@@ -463,10 +463,9 @@ class InceptionScore:
 
         Returns
         -------
-        score_mean : float
-            The mean of the computed Inception Scores across the splits.
-        score_std : float
-            The standard deviation of the Inception Scores across the splits.
+        numpy.ndarray
+            A numpy array containing the mean and the standard deviation of the computed Inception Scores across the splits.
+
         """
 
         # Convert the DataFrame to a NumPy array for processing
@@ -484,7 +483,8 @@ class InceptionScore:
             ]
 
             # Compute the KL divergence for the current subset
-            # KL(p(y|x) || p(y)) where p(y|x) is the per-sample probability and p(y) is the marginal probability
+            # KL(real_dist(y|x) || real_dist(y)) where real_dist(y|x) is the per-sample probability and real_dist(y)
+            # is the marginal probability
             kl_divergence = subset * (numpy.log(subset) - numpy.log(numpy.mean(subset, axis=0, keepdims=True)))
 
             # Average the KL divergence for the subset and exponentiate the result to get the Inception Score
@@ -495,7 +495,7 @@ class InceptionScore:
         score_mean = float(numpy.mean(scores))
         score_std = float(numpy.std(scores))
 
-        return score_mean, score_std
+        return numpy.array([score_mean, score_std])
 
 
 class FrechetDistance(SimilarityMetric):
@@ -526,49 +526,49 @@ class FrechetDistance(SimilarityMetric):
         SimilarityMetric.__init__(self)
         self.eps = eps
 
-    def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
+    def calculate(self, real_dist_df: pandas.DataFrame, synth_dist_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Compute the Frechet distance between two distributions by comparing the mean and covariance of the samples
         provided.
 
         Parameters
         ----------
-        dist_p_df : pandas.DataFrame
-            Set of samples representing distribution P.
-        dist_q_df : pandas.DataFrame
-            Set of samples representing distribution Q.
+        real_dist_df : pandas.DataFrame
+            Set of samples representing distribution real_dist.
+        synth_dist_df : pandas.DataFrame
+            Set of samples representing distribution synth_dist.
 
         Returns
         -------
-        out : float
-        The Frechet Distance.
+        numpy.ndarray
+            A numpy array containing the Frechet Distance.
 
         """
 
         # Convert dataframes to NumPy arrays for computation
-        dist_p = dist_p_df.to_numpy()
-        dist_q = dist_q_df.to_numpy()
+        real_dist = real_dist_df.to_numpy()
+        synth_dist = synth_dist_df.to_numpy()
 
         # Compute the mean of the samples for both distributions
-        mean_dist_p = numpy.mean(dist_p, axis=0)
-        mean_dist_q = numpy.mean(dist_q, axis=0)
+        mean_real_dist = numpy.mean(real_dist, axis=0)
+        mean_synth_dist = numpy.mean(synth_dist, axis=0)
 
         # Compute the covariance matrices for both distributions
-        cov_dist_p = numpy.cov(dist_p, rowvar=False)
-        cov_dist_q = numpy.cov(dist_q, rowvar=False)
+        cov_real_dist = numpy.cov(real_dist, rowvar=False)
+        cov_synth_dist = numpy.cov(synth_dist, rowvar=False)
 
         # Compute the difference between the means of the two distributions
-        mean_diff = mean_dist_q - mean_dist_p
+        mean_diff = mean_synth_dist - mean_real_dist
 
         # Compute the square root of the product of the covariance matrices
         # Note: The function returns both the matrix and a flag; we only need the matrix here
-        cov_mean, _ = scipy.linalg.sqrtm(numpy.dot(cov_dist_q, cov_dist_p), disp=False)
+        cov_mean, _ = scipy.linalg.sqrtm(numpy.dot(cov_synth_dist, cov_real_dist), disp=False)
 
         # Handle potential numerical issues (e.g., if cov_mean has non-finite values)
         if not numpy.isfinite(cov_mean).all():
             # If cov_mean is not finite, add a small offset (eps) to the diagonal of the covariance matrices
-            offset = numpy.eye(cov_dist_q.shape[0]) * self.eps
-            cov_mean = scipy.linalg.sqrtm(numpy.dot(cov_dist_q + offset, cov_dist_p + offset))
+            offset = numpy.eye(cov_synth_dist.shape[0]) * self.eps
+            cov_mean = scipy.linalg.sqrtm(numpy.dot(cov_synth_dist + offset, cov_real_dist + offset))
 
         # If there are small imaginary components due to numerical errors, discard the imaginary part
         if numpy.iscomplexobj(cov_mean):
@@ -580,11 +580,11 @@ class FrechetDistance(SimilarityMetric):
         # Calculate the Frechet distance using the formula:
         # ||mean_diff||^2 + Tr(cov_p) + Tr(cov_q) - 2 * Tr(sqrt(cov_p * cov_q))
         f_dist = (numpy.dot(mean_diff, mean_diff)  # Squared difference of the means
-                  + numpy.trace(cov_dist_q)  # Trace of the covariance of Q
-                  + numpy.trace(cov_dist_p)  # Trace of the covariance of P
+                  + numpy.trace(cov_synth_dist)  # Trace of the covariance of synth_dist
+                  + numpy.trace(cov_real_dist)  # Trace of the covariance of real_dist
                   - 2 * tr_cov_mean)  # 2 times the trace of the product of the covariances
 
-        return f_dist
+        return numpy.array(f_dist)
 
 
 class KernelDistance(SimilarityMetric):
@@ -618,43 +618,43 @@ class KernelDistance(SimilarityMetric):
         self.num_subsets = num_subsets
         self.max_subset_size = max_subset_size
 
-    def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> float:
+    def calculate(self, real_dist_df: pandas.DataFrame, synth_dist_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Compute the Kernel distance between two distributions using the samples
         provided.
 
         Parameters
         ----------
-        dist_p_df : pandas.DataFrame
-            Set of samples representing distribution P.
-        dist_q_df : pandas.DataFrame
-            Set of samples representing distribution Q.
+        real_dist_df : pandas.DataFrame
+            Set of samples representing distribution real_dist.
+        synth_dist_df : pandas.DataFrame
+            Set of samples representing distribution synth_dist.
 
         Returns
         -------
-        out : float
-        The Kernel Distance.
+        numpy.ndarray
+            A numpy array containing the Kernel Distance.
 
         """
 
         # Convert the dataframes to NumPy arrays for computation
-        dist_p = dist_p_df.to_numpy()
-        dist_q = dist_q_df.to_numpy()
+        real_dist = real_dist_df.to_numpy()
+        synth_dist = synth_dist_df.to_numpy()
 
         # Limit the number of samples for both distributions to max_samples if needed
-        if dist_p.shape[0] > self.max_samples:
-            selected_indices = numpy.random.choice(dist_p.shape[0], self.max_samples, replace=False)
-            dist_p = dist_p[selected_indices]
+        if real_dist.shape[0] > self.max_samples:
+            selected_indices = numpy.random.choice(real_dist.shape[0], self.max_samples, replace=False)
+            real_dist = real_dist[selected_indices]
 
-        if dist_q.shape[0] > self.max_samples:
-            selected_indices = numpy.random.choice(dist_q.shape[0], self.max_samples, replace=False)
-            dist_q = dist_q[selected_indices]
+        if synth_dist.shape[0] > self.max_samples:
+            selected_indices = numpy.random.choice(synth_dist.shape[0], self.max_samples, replace=False)
+            synth_dist = synth_dist[selected_indices]
 
         # Number of features (dimensions) in the samples
-        num_features = dist_p.shape[1]
+        num_features = real_dist.shape[1]
 
         # Determine the subset size for kernel computation (limited by max_subset_size)
-        subset_size = min(min(dist_p.shape[0], dist_q.shape[0]), self.max_subset_size)
+        subset_size = min(min(real_dist.shape[0], synth_dist.shape[0]), self.max_subset_size)
 
         # Initialize accumulator for the kernel distance computation
         total_kernel_distance = 0
@@ -662,31 +662,31 @@ class KernelDistance(SimilarityMetric):
         # Perform the Kernel distance computation over multiple subsets
         for _ in range(self.num_subsets):
             # Randomly sample subsets from both distributions
-            subset_p = dist_p[numpy.random.choice(dist_p.shape[0], subset_size, replace=False)]
-            subset_q = dist_q[numpy.random.choice(dist_q.shape[0], subset_size, replace=False)]
+            subset_p = real_dist[numpy.random.choice(real_dist.shape[0], subset_size, replace=False)]
+            subset_q = synth_dist[numpy.random.choice(synth_dist.shape[0], subset_size, replace=False)]
 
             # Compute pairwise distances between samples within subsets
-            # Matrix operations for subsets of P and Q
-            kernel_aa = (subset_p @ subset_p.T / num_features + 1) ** 3  # Kernel for P
-            kernel_bb = (subset_q @ subset_q.T / num_features + 1) ** 3  # Kernel for Q
-            kernel_ab = (subset_p @ subset_q.T / num_features + 1) ** 3  # Kernel between P and Q
+            # Matrix operations for subsets of real_dist and synth_dist
+            kernel_aa = (subset_p @ subset_p.T / num_features + 1) ** 3  # Kernel for real_dist
+            kernel_bb = (subset_q @ subset_q.T / num_features + 1) ** 3  # Kernel for synth_dist
+            kernel_ab = (subset_p @ subset_q.T / num_features + 1) ** 3  # Kernel between real_dist and synth_dist
 
             # Sum over the elements of kernel matrices, excluding diagonal elements
             total_kernel_distance += (
-                    (kernel_aa.sum() - numpy.diag(kernel_aa).sum()) / (subset_size - 1)  # Within P
-                    + (kernel_bb.sum() - numpy.diag(kernel_bb).sum()) / (subset_size - 1)  # Within Q
-                    - 2 * kernel_ab.sum() / subset_size  # Between P and Q
+                    (kernel_aa.sum() - numpy.diag(kernel_aa).sum()) / (subset_size - 1)  # Within real_dist
+                    + (kernel_bb.sum() - numpy.diag(kernel_bb).sum()) / (subset_size - 1)  # Within synth_dist
+                    - 2 * kernel_ab.sum() / subset_size  # Between real_dist and synth_dist
             )
 
         # Compute the final kernel distance by averaging across all subsets
         kernel_distance = total_kernel_distance / self.num_subsets / subset_size
-        return kernel_distance
+        return numpy.array(kernel_distance)
 
 
 class PRScores(SimilarityMetric):
     """
     A Similarity Metric class that computes the Precision and Recall scores between two distributions
-    (dist_p and dist_q).
+    (real_dist and synth_dist).
 
     Attributes
     ----------
@@ -720,34 +720,32 @@ class PRScores(SimilarityMetric):
         else:
             self.device = torch.device("cpu")
 
-    def calculate(self, dist_p_df: pandas.DataFrame, dist_q_df: pandas.DataFrame) -> (float, float):
+    def calculate(self, real_dist_df: pandas.DataFrame, synth_dist_df: pandas.DataFrame) -> numpy.ndarray:
         """
         Compute Precision and Recall metrics between two distributions.
 
         Parameters
         ----------
-        dist_p_df : pandas.DataFrame
-            DataFrame containing samples from distribution P.
-        dist_q_df : pandas.DataFrame
-            DataFrame containing samples from distribution Q.
+        real_dist_df : pandas.DataFrame
+            DataFrame containing samples from distribution real_dist.
+        synth_dist_df : pandas.DataFrame
+            DataFrame containing samples from distribution synth_dist.
 
         Returns
         -------
-        precision : float
-            Precision metric between distribution P and Q.
-        recall : float
-            Recall metric between distribution P and Q.
+        numpy.ndarray
+            A numpy array containing the Precision and the Recall metrics between distribution real_dist and synth_dist.
         """
 
         # Convert DataFrames to NumPy arrays for distance computation
-        dist_p = dist_p_df.to_numpy()
-        dist_q = dist_q_df.to_numpy()
+        real_dist = real_dist_df.to_numpy()
+        synth_dist = synth_dist_df.to_numpy()
 
         results = {}
 
         # Compute precision and recall in two passes:
-        for name, manifold, probes in [('precision', dist_p, dist_q),
-                                       ('recall', dist_q, dist_p)]:
+        for name, manifold, probes in [('precision', real_dist, synth_dist),
+                                       ('recall', synth_dist, real_dist)]:
             kth = []  # To store the k-th nearest distances for manifold points
 
             # Compute the slices for numpy.split, as the manifold could be not divisible for row_batch_size.
@@ -795,7 +793,7 @@ class PRScores(SimilarityMetric):
             results[name] = float(torch.cat(pred).to(torch.float32).mean())
 
         # Return precision and recall
-        return results['precision'], results['recall']
+        return numpy.array([results['precision'], results['recall']])
 
     @staticmethod
     def __compute_distances(row_features, col_features, col_batch_size):
