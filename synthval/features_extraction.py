@@ -292,7 +292,7 @@ class MambaFeatureExtractor(FeatureExtractor):
         Returns
         -------
         numpy.ndarray
-            A 1-D NumPy array of 640 features.
+            A 1-D NumPy array of 768 features for small or 1024 for base.
         """
 
         # Load the specified MambaVision model from HuggingFace
@@ -356,7 +356,7 @@ class InceptionExtractor(FeatureExtractor):
         Returns
         -------
         numpy.ndarray
-            A 1-D NumPy array of 2048 features (or probabilities).
+            A 1-D NumPy array of 2048 features (or 1000 probabilities).
         """
 
         # Load the specified MambaVision model from HuggingFace
