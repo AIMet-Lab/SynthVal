@@ -339,18 +339,18 @@
 <dt class="sig sig-object py" id="synthval.features_extraction.FeatureExtractor">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.features_extraction.</span></span><span class="sig-name descname"><span class="pre">FeatureExtractor</span></span><a class="headerlink" href="#synthval.features_extraction.FeatureExtractor" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Abstract base class representing a generic feature extractor. Child classes must implement
-the concrete <cite>feature_extraction</cite> method for specific feature extraction.</p>
+<p>Abstract base class representing a generic feature extractor.
+Child classes must implement the batch_feature_extraction method for batch processing.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="synthval.features_extraction.FeatureExtractor.feature_extraction">
-<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.FeatureExtractor.feature_extraction" title="Link to this definition">#</a></dt>
-<dd><p>Abstract method to extract features from a PIL image.</p>
+<dt class="sig sig-object py" id="synthval.features_extraction.FeatureExtractor.batch_feature_extraction">
+<em class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">batch_feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.FeatureExtractor.batch_feature_extraction" title="Link to this definition">#</a></dt>
+<dd><p>Abstract method to extract features from a batch of images.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>PIL.Image.Image</em>) – The image from which features are to be extracted.</p>
+<dd class="field-odd"><p><strong>images</strong> (<em>List</em><em>[</em><em>PIL.Image.Image</em><em>]</em>) – List of PIL images to extract features from.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A NumPy array containing the extracted features.</p>
+<dd class="field-even"><p>A NumPy array containing extracted features for the batch.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -360,17 +360,18 @@ the concrete <cite>feature_extraction</cite> method for specific feature extract
 
 <dl class="py method">
 <dt class="sig sig-object py" id="synthval.features_extraction.FeatureExtractor.group_feature_extraction">
-<span class="sig-name descname"><span class="pre">group_feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_folder_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.FeatureExtractor.group_feature_extraction" title="Link to this definition">#</a></dt>
-<dd><p>Extract features from all images in the specified folder.</p>
+<span class="sig-name descname"><span class="pre">group_feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_folder_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.FeatureExtractor.group_feature_extraction" title="Link to this definition">#</a></dt>
+<dd><p>Extract features from all images in a specified folder using batch processing.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_folder_path</strong> (<em>str</em>) – The path to the folder containing the images.</p></li>
-<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, log the progress of feature extraction (default: True).</p></li>
+<li><p><strong>source_folder_path</strong> (<em>str</em>) – Path to the folder containing images.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of images to process in a single batch (default: 16).</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, logs progress during extraction (default: True).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A DataFrame where each row represents the features of an image.</p>
+<dd class="field-even"><p>A DataFrame containing extracted features for all images.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pandas.DataFrame</p>
@@ -380,19 +381,19 @@ the concrete <cite>feature_extraction</cite> method for specific feature extract
 
 <dl class="py method">
 <dt class="sig sig-object py" id="synthval.features_extraction.FeatureExtractor.get_features_df">
-<span class="sig-name descname"><span class="pre">get_features_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_folder_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.FeatureExtractor.get_features_df" title="Link to this definition">#</a></dt>
-<dd><p>Extract features from a dataset of images and optionally save them to a CSV file.</p>
+<span class="sig-name descname"><span class="pre">get_features_df</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source_folder_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">save_path</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">16</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.FeatureExtractor.get_features_df" title="Link to this definition">#</a></dt>
+<dd><p>Extract features from images in a folder and optionally save them to a CSV file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source_folder_path</strong> (<em>str</em>) – Path to the folder containing the images.</p></li>
-<li><p><strong>save_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to save the features DataFrame as a CSV file. If a CSV file already exists at
-the provided path, it will be loaded instead of recalculating features (default: None).</p></li>
-<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, log the progress of feature extraction (default: True).</p></li>
+<li><p><strong>source_folder_path</strong> (<em>str</em>) – Path to the folder containing images.</p></li>
+<li><p><strong>save_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to save the features DataFrame as a CSV file. If a CSV file exists, it will be loaded instead.</p></li>
+<li><p><strong>batch_size</strong> (<em>int</em><em>, </em><em>optional</em>) – Number of images to process per batch (default: 16).</p></li>
+<li><p><strong>verbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, logs progress during extraction (default: True).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A DataFrame containing the extracted features.</p>
+<dd class="field-even"><p>DataFrame containing extracted features for all images.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>pandas.DataFrame</p>
@@ -452,7 +453,7 @@ the provided path, it will be loaded instead of recalculating features (default:
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.FeatureExtractor"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.FeatureExtractor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.FeatureExtractor.feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.FeatureExtractor.feature_extraction()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.FeatureExtractor.batch_feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.FeatureExtractor.batch_feature_extraction()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.FeatureExtractor.group_feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.FeatureExtractor.group_feature_extraction()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.FeatureExtractor.get_features_df"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.FeatureExtractor.get_features_df()</span></code></a></li>
 </ul>

@@ -13,22 +13,15 @@ synthval.features_extraction.DinoV2FeatureExtractor
    which is not currently supported on the MPS backend. To use these models as feature extractors
    on MPS, users must set the environment variable `PYTORCH_ENABLE_MPS_FALLBACK` to `1`.
 
-   .. attribute:: model_id
 
-      HuggingFace model ID for the selected DinoV2 model.
+   .. py:method:: batch_feature_extraction(images)
 
-      :type: str
+      Extract features from a batch of images using the HuggingFace DinoV2 model.
 
+      :param images: List of PIL images to extract features from.
+      :type images: List[PIL.Image.Image]
 
-   .. py:method:: feature_extraction(image)
-
-      Extract features from a PIL image using the selected HuggingFace DinoV2 model.
-
-      :param image: The image to extract features from.
-      :type image: PIL.Image.Image
-
-      :returns: A 1-D NumPy array. The number of features depend on the specific model: 384 for small, 768 for base,
-                1024 for large, and 1536 for giant.
+      :returns: A NumPy array where each row corresponds to the feature vector of an image.
       :rtype: numpy.ndarray
 
 

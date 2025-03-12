@@ -7,31 +7,17 @@ synthval.features_extraction.InceptionExtractor
 
 
    Feature extractor using traditional Inception models from the timm library (https://huggingface.co/docs/timm/index).
-
-   .. attribute:: model_id
-
-      Timm model ID for the selected Inception model (should be one among inception_v3 and inception_v4).
-
-      :type: str
-
-   .. attribute:: get_probabilities
-
-      Flag controlling if the extractor should provide the model prediction over the
-      ImageNet (https://www.image-net.org) classes. We provide this capability for the computation of the
-      Inception Score (default: False).
-
-      :type: bool, Optional
+   Supports batch processing and provides options to extract feature embeddings or class probabilities.
 
 
-   .. py:method:: feature_extraction(image)
+   .. py:method:: batch_feature_extraction(images)
 
-      Extract features (or probabilities if get_probabilities is set) from a PIL image using the selected
-      Timm Inception model.
+      Extract features (or probabilities) from a batch of images using the Inception model.
 
-      :param image: The image to extract features from.
-      :type image: PIL.Image.Image
+      :param images: List of PIL images to extract features from.
+      :type images: List[PIL.Image.Image]
 
-      :returns: A 1-D NumPy array of 2048 features (or 1000 probabilities).
+      :returns: A NumPy array where each row corresponds to the feature vector (or probability vector) of an image.
       :rtype: numpy.ndarray
 
 

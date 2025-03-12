@@ -349,28 +349,16 @@ on MPS, users must set the environment variable <cite>PYTORCH_ENABLE_MPS_FALLBAC
 <dd class="field-odd"><p><strong>model_id</strong> (<em>str</em>)</p>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="synthval.features_extraction.DinoV2FeatureExtractor.model_id">
-<span class="sig-name descname"><span class="pre">model_id</span></span><a class="headerlink" href="#synthval.features_extraction.DinoV2FeatureExtractor.model_id" title="Link to this definition">#</a></dt>
-<dd><p>HuggingFace model ID for the selected DinoV2 model.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
-<dt class="sig sig-object py" id="synthval.features_extraction.DinoV2FeatureExtractor.feature_extraction">
-<span class="sig-name descname"><span class="pre">feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.DinoV2FeatureExtractor.feature_extraction" title="Link to this definition">#</a></dt>
-<dd><p>Extract features from a PIL image using the selected HuggingFace DinoV2 model.</p>
+<dt class="sig sig-object py" id="synthval.features_extraction.DinoV2FeatureExtractor.batch_feature_extraction">
+<span class="sig-name descname"><span class="pre">batch_feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.DinoV2FeatureExtractor.batch_feature_extraction" title="Link to this definition">#</a></dt>
+<dd><p>Extract features from a batch of images using the HuggingFace DinoV2 model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>PIL.Image.Image</em>) – The image to extract features from.</p>
+<dd class="field-odd"><p><strong>images</strong> (<em>List</em><em>[</em><em>PIL.Image.Image</em><em>]</em>) – List of PIL images to extract features from.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A 1-D NumPy array. The number of features depend on the specific model: 384 for small, 768 for base,
-1024 for large, and 1536 for giant.</p>
+<dd class="field-even"><p>A NumPy array where each row corresponds to the feature vector of an image.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -430,8 +418,7 @@ on MPS, users must set the environment variable <cite>PYTORCH_ENABLE_MPS_FALLBAC
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.DinoV2FeatureExtractor"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.DinoV2FeatureExtractor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.DinoV2FeatureExtractor.model_id"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.DinoV2FeatureExtractor.model_id</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.DinoV2FeatureExtractor.feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.DinoV2FeatureExtractor.feature_extraction()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.DinoV2FeatureExtractor.batch_feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.DinoV2FeatureExtractor.batch_feature_extraction()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -7,17 +7,17 @@ synthval.features_extraction.RadDinoFeatureExtractor
 
 
    Feature extractor using the HuggingFace model microsoft/rad-dino for extracting features from images.
+   This implementation supports batch processing for improved performance on large datasets.
 
 
+   .. py:method:: batch_feature_extraction(images)
 
-   .. py:method:: feature_extraction(image)
+      Extract features from a batch of images using the HuggingFace Rad-Dino model.
 
-      Extract features from a PIL image using the HuggingFace Rad-Dino model.
+      :param images: List of PIL images to extract features from.
+      :type images: List[PIL.Image.Image]
 
-      :param image: The image to extract features from.
-      :type image: PIL.Image.Image
-
-      :returns: A 1-D NumPy array of 768 features.
+      :returns: A NumPy array where each row corresponds to the feature vector of an image.
       :rtype: numpy.ndarray
 
 

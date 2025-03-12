@@ -339,17 +339,18 @@
 <dt class="sig sig-object py" id="synthval.features_extraction.RadDinoFeatureExtractor">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.features_extraction.</span></span><span class="sig-name descname"><span class="pre">RadDinoFeatureExtractor</span></span><a class="headerlink" href="#synthval.features_extraction.RadDinoFeatureExtractor" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">FeatureExtractor</span></code></p>
-<p>Feature extractor using the HuggingFace model microsoft/rad-dino for extracting features from images.</p>
+<p>Feature extractor using the HuggingFace model microsoft/rad-dino for extracting features from images.
+This implementation supports batch processing for improved performance on large datasets.</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="synthval.features_extraction.RadDinoFeatureExtractor.feature_extraction">
-<span class="sig-name descname"><span class="pre">feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.RadDinoFeatureExtractor.feature_extraction" title="Link to this definition">#</a></dt>
-<dd><p>Extract features from a PIL image using the HuggingFace Rad-Dino model.</p>
+<dt class="sig sig-object py" id="synthval.features_extraction.RadDinoFeatureExtractor.batch_feature_extraction">
+<span class="sig-name descname"><span class="pre">batch_feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.RadDinoFeatureExtractor.batch_feature_extraction" title="Link to this definition">#</a></dt>
+<dd><p>Extract features from a batch of images using the HuggingFace Rad-Dino model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>PIL.Image.Image</em>) – The image to extract features from.</p>
+<dd class="field-odd"><p><strong>images</strong> (<em>List</em><em>[</em><em>PIL.Image.Image</em><em>]</em>) – List of PIL images to extract features from.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A 1-D NumPy array of 768 features.</p>
+<dd class="field-even"><p>A NumPy array where each row corresponds to the feature vector of an image.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -409,7 +410,7 @@
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.RadDinoFeatureExtractor"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.RadDinoFeatureExtractor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.RadDinoFeatureExtractor.feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.RadDinoFeatureExtractor.feature_extraction()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.RadDinoFeatureExtractor.batch_feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.RadDinoFeatureExtractor.batch_feature_extraction()</span></code></a></li>
 </ul>
 </li>
 </ul>

@@ -13,21 +13,15 @@ synthval.features_extraction.MambaFeatureExtractor
    To use these models as feature extractors, users must have CUDA installed and install the necessary
    packages by running `pip install mambavision`.
 
-   .. attribute:: model_id
 
-      HuggingFace model ID for the selected MambaVision model.
+   .. py:method:: batch_feature_extraction(images)
 
-      :type: str
+      Extract features from a batch of images using the HuggingFace MambaVision model.
 
+      :param images: List of PIL images to extract features from.
+      :type images: List[PIL.Image.Image]
 
-   .. py:method:: feature_extraction(image)
-
-      Extract features from a PIL image using the selected HuggingFace MambaVision model.
-
-      :param image: The image to extract features from.
-      :type image: PIL.Image.Image
-
-      :returns: A 1-D NumPy array of 768 features for small or 1024 for base.
+      :returns: A NumPy array where each row corresponds to the feature vector of an image.
       :rtype: numpy.ndarray
 
 

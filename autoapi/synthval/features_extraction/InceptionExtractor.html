@@ -339,7 +339,8 @@
 <dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor">
 <em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.features_extraction.</span></span><span class="sig-name descname"><span class="pre">InceptionExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_probabilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">FeatureExtractor</span></code></p>
-<p>Feature extractor using traditional Inception models from the timm library (<a class="reference external" href="https://huggingface.co/docs/timm/index">https://huggingface.co/docs/timm/index</a>).</p>
+<p>Feature extractor using traditional Inception models from the timm library (<a class="reference external" href="https://huggingface.co/docs/timm/index">https://huggingface.co/docs/timm/index</a>).
+Supports batch processing and provides options to extract feature embeddings or class probabilities.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -348,41 +349,16 @@
 </ul>
 </dd>
 </dl>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.model_id">
-<span class="sig-name descname"><span class="pre">model_id</span></span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.model_id" title="Link to this definition">#</a></dt>
-<dd><p>Timm model ID for the selected Inception model (should be one among inception_v3 and inception_v4).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.get_probabilities">
-<span class="sig-name descname"><span class="pre">get_probabilities</span></span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.get_probabilities" title="Link to this definition">#</a></dt>
-<dd><p>Flag controlling if the extractor should provide the model prediction over the
-ImageNet (<a class="reference external" href="https://www.image-net.org">https://www.image-net.org</a>) classes. We provide this capability for the computation of the
-Inception Score (default: False).</p>
-<dl class="field-list simple">
-<dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>bool, Optional</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py method">
-<dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.feature_extraction">
-<span class="sig-name descname"><span class="pre">feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">image</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.feature_extraction" title="Link to this definition">#</a></dt>
-<dd><p>Extract features (or probabilities if get_probabilities is set) from a PIL image using the selected
-Timm Inception model.</p>
+<dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor.batch_feature_extraction">
+<span class="sig-name descname"><span class="pre">batch_feature_extraction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">images</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor.batch_feature_extraction" title="Link to this definition">#</a></dt>
+<dd><p>Extract features (or probabilities) from a batch of images using the Inception model.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>image</strong> (<em>PIL.Image.Image</em>) – The image to extract features from.</p>
+<dd class="field-odd"><p><strong>images</strong> (<em>List</em><em>[</em><em>PIL.Image.Image</em><em>]</em>) – List of PIL images to extract features from.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A 1-D NumPy array of 2048 features (or 1000 probabilities).</p>
+<dd class="field-even"><p>A NumPy array where each row corresponds to the feature vector (or probability vector) of an image.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -442,9 +418,7 @@ Timm Inception model.</p>
   <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.InceptionExtractor"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.InceptionExtractor</span></code></a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.InceptionExtractor.model_id"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.InceptionExtractor.model_id</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.InceptionExtractor.get_probabilities"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.InceptionExtractor.get_probabilities</span></code></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.InceptionExtractor.feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.InceptionExtractor.feature_extraction()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#synthval.features_extraction.InceptionExtractor.batch_feature_extraction"><code class="docutils literal notranslate"><span class="pre">synthval.features_extraction.InceptionExtractor.batch_feature_extraction()</span></code></a></li>
 </ul>
 </li>
 </ul>

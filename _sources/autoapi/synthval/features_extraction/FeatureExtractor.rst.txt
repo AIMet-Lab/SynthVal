@@ -6,52 +6,54 @@ synthval.features_extraction.FeatureExtractor
    Bases: :py:obj:`abc.ABC`
 
 
-   Abstract base class representing a generic feature extractor. Child classes must implement
-   the concrete `feature_extraction` method for specific feature extraction.
+   Abstract base class representing a generic feature extractor.
+   Child classes must implement the batch_feature_extraction method for batch processing.
 
 
-
-   .. py:method:: feature_extraction(image)
+   .. py:method:: batch_feature_extraction(images)
       :abstractmethod:
 
 
-      Abstract method to extract features from a PIL image.
+      Abstract method to extract features from a batch of images.
 
-      :param image: The image from which features are to be extracted.
-      :type image: PIL.Image.Image
+      :param images: List of PIL images to extract features from.
+      :type images: List[PIL.Image.Image]
 
-      :returns: A NumPy array containing the extracted features.
+      :returns: A NumPy array containing extracted features for the batch.
       :rtype: numpy.ndarray
 
 
 
-   .. py:method:: group_feature_extraction(source_folder_path, verbose = True)
+   .. py:method:: group_feature_extraction(source_folder_path, batch_size = 16, verbose = True)
 
-      Extract features from all images in the specified folder.
+      Extract features from all images in a specified folder using batch processing.
 
-      :param source_folder_path: The path to the folder containing the images.
+      :param source_folder_path: Path to the folder containing images.
       :type source_folder_path: str
-      :param verbose: If True, log the progress of feature extraction (default: True).
+      :param batch_size: Number of images to process in a single batch (default: 16).
+      :type batch_size: int, optional
+      :param verbose: If True, logs progress during extraction (default: True).
       :type verbose: bool, optional
 
-      :returns: A DataFrame where each row represents the features of an image.
+      :returns: A DataFrame containing extracted features for all images.
       :rtype: pandas.DataFrame
 
 
 
-   .. py:method:: get_features_df(source_folder_path, save_path = None, verbose = True)
+   .. py:method:: get_features_df(source_folder_path, save_path = None, batch_size = 16, verbose = True)
 
-      Extract features from a dataset of images and optionally save them to a CSV file.
+      Extract features from images in a folder and optionally save them to a CSV file.
 
-      :param source_folder_path: Path to the folder containing the images.
+      :param source_folder_path: Path to the folder containing images.
       :type source_folder_path: str
-      :param save_path: Path to save the features DataFrame as a CSV file. If a CSV file already exists at
-                        the provided path, it will be loaded instead of recalculating features (default: None).
+      :param save_path: Path to save the features DataFrame as a CSV file. If a CSV file exists, it will be loaded instead.
       :type save_path: str, optional
-      :param verbose: If True, log the progress of feature extraction (default: True).
+      :param batch_size: Number of images to process per batch (default: 16).
+      :type batch_size: int, optional
+      :param verbose: If True, logs progress during extraction (default: True).
       :type verbose: bool, optional
 
-      :returns: A DataFrame containing the extracted features.
+      :returns: DataFrame containing extracted features for all images.
       :rtype: pandas.DataFrame
 
 
