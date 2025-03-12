@@ -31,7 +31,7 @@ synthval.features_extraction.InceptionExtractor
       :param image: The image to extract features from.
       :type image: PIL.Image.Image
 
-      :returns: A 1-D NumPy array of 2048 features (or probabilities).
+      :returns: A 1-D NumPy array of 2048 features (or 1000 probabilities).
       :rtype: numpy.ndarray
 
 

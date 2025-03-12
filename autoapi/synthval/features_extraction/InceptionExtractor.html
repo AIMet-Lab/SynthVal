@@ -337,7 +337,7 @@
 <h1>synthval.features_extraction.InceptionExtractor<a class="headerlink" href="#synthval-features-extraction-inceptionextractor" title="Link to this heading">#</a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="synthval.features_extraction.InceptionExtractor">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.features_extraction.</span></span><span class="sig-name descname"><span class="pre">InceptionExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_probabilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor" title="Link to this definition">#</a></dt>
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">synthval.features_extraction.</span></span><span class="sig-name descname"><span class="pre">InceptionExtractor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_probabilities</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#synthval.features_extraction.InceptionExtractor" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">FeatureExtractor</span></code></p>
 <p>Feature extractor using traditional Inception models from the timm library (<a class="reference external" href="https://huggingface.co/docs/timm/index">https://huggingface.co/docs/timm/index</a>).</p>
 <dl class="field-list simple">
@@ -382,7 +382,7 @@ Timm Inception model.</p>
 <dd class="field-odd"><p><strong>image</strong> (<em>PIL.Image.Image</em>) – The image to extract features from.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A 1-D NumPy array of 2048 features (or probabilities).</p>
+<dd class="field-even"><p>A 1-D NumPy array of 2048 features (or 1000 probabilities).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>numpy.ndarray</p>
@@ -493,7 +493,7 @@ Timm Inception model.</p>
         <div class="footer-item">
 
   <p class="sphinx-version">
-    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.1.3.
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
     <br/>
   </p>
 </div>

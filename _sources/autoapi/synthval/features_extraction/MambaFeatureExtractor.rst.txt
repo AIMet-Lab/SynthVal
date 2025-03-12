@@ -27,7 +27,7 @@ synthval.features_extraction.MambaFeatureExtractor
       :param image: The image to extract features from.
       :type image: PIL.Image.Image
 
-      :returns: A 1-D NumPy array of 640 features.
+      :returns: A 1-D NumPy array of 768 features for small or 1024 for base.
       :rtype: numpy.ndarray
 
 
