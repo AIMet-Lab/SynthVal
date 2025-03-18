@@ -336,9 +336,6 @@ class FCNNAccuracyMetric(SimilarityMetric):
         optimizer_con = train_params["optimizer_con"]
         opt_params = train_params["opt_params"]
         labels = dataset.train_df["Label"].to_numpy(int)
-        c_weights = sklearn.utils.class_weight.compute_class_weight("balanced", classes=numpy.unique(labels), y=labels)
-        c_weights = numpy.float32(c_weights)
-        loss_function = torch.nn.CrossEntropyLoss(weight=torch.from_numpy(c_weights))
         n_epochs = train_params["n_epochs"]
         validation_percentage = train_params["validation_percentage"]
         train_batch_size = train_params["train_batch_size"]
@@ -352,6 +349,9 @@ class FCNNAccuracyMetric(SimilarityMetric):
         train_patience = train_params["train_patience"]
         checkpoints_root = train_params["checkpoints_root"]
         verbose_rate = train_params["verbose_rate"]
+        c_weights = sklearn.utils.class_weight.compute_class_weight("balanced", classes=numpy.unique(labels), y=labels)
+        c_weights = numpy.float32(c_weights)
+        loss_function = torch.nn.CrossEntropyLoss(weight=torch.from_numpy(c_weights).to(device))
 
         trainer = pynever.strategies.training.PytorchTraining(optimizer_con=optimizer_con,
                                                               opt_params=opt_params,
