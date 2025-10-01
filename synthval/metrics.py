@@ -319,14 +319,14 @@ class FCNNAccuracyMetric(SimilarityMetric):
         for i in range(len(num_hidden_neurons)):
             hn_num = num_hidden_neurons[i]
             fc_node = pynever.nodes.FullyConnectedNode(f"FC_{i}", current_dim, hn_num)
-            pyn_net.add_node(fc_node)
+            pyn_net.append_node(fc_node)
             current_dim = (hn_num,)
 
             relu_node = pynever.nodes.ReLUNode(f"ReLU_{i}", current_dim)
-            pyn_net.add_node(relu_node)
+            pyn_net.append_node(relu_node)
 
         output_node = pynever.nodes.FullyConnectedNode(f"FC_out", current_dim, output_dim[0])
-        pyn_net.add_node(output_node)
+        pyn_net.append_node(output_node)
 
         return pyn_net
 
